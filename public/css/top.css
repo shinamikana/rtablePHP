@@ -1,0 +1,907 @@
+html,body{
+    background-color:#cfffff;
+    position: relative;
+}
+
+*{
+    box-sizing: border-box;
+    font-weight: lighter;
+}
+
+li{
+    list-style-type:none;
+}
+
+.info{
+    position: absolute;
+    top:0;
+    right:0px;
+    z-index:9;
+    float:right;
+    margin-top:20px;
+}
+
+.info li{
+    float:left;
+    margin-right:20px;
+}
+
+.info a{
+    padding: 0px 15px;
+    font-family: 'Anton', sans-serif;
+    color:white;
+    text-decoration: none;
+    letter-spacing: 2px;
+    font-size:25px;
+    background-color: skyblue;
+    border-radius: 10px;
+    cursor:pointer;
+}
+
+.info a:hover{
+    background-color:aqua;
+}
+
+.post-wrapper{
+    height:auto;
+    width:85%;
+    margin-top:50px;
+    margin-bottom:100px;
+    margin-left:20px;
+    border:1px solid skyblue;
+    background-color:skyblue;
+    border-radius: 10px;
+    float:left;
+}
+
+.post{
+    display:inline-block;
+    z-index:3;
+    min-height:150px;
+    height:auto;
+    width:95%;
+    border:1px solid mediumspringgreen;
+    border-radius: 10px;
+    margin:10px 20px;
+    background-color:#dfffff;
+    color:skyblue;
+    padding-bottom:10px;
+}
+
+.icon{
+    width:80px;
+    height:80px;
+    margin: 20px;
+    float:left;
+    object-fit:cover;
+    border:1px solid skyblue;
+    border-radius: 10px;
+}
+
+.img-view{
+    position: fixed;
+    top:0;
+    left:0;
+    right:0;
+    z-index:10001;
+    height:100%;
+    width:100%;
+    background-color: rgba(255,255,255,0.3);
+    display: none;
+}
+
+.post a{
+    float:left;
+    margin:10px;
+}
+
+.post p{
+    margin:10px;
+}
+
+.content{
+    background-color:#dfffff;
+    width:auto;
+    min-width:70%;
+    min-height:150px;
+    height:auto;
+    float:left;
+    margin-right:20px;
+    border:1px solid skyblue;
+    border-radius: 10px;
+    color:royalblue;
+    text-shadow:0.3px 0 0 aqua;
+    font-family: "Hannari",'Bona Nova', serif;
+    letter-spacing: 0.1em;
+}
+
+.content p{
+    font-size:19px;
+    white-space: pre-wrap;
+    line-height: 24px;
+}
+
+.content-img{
+    z-index:10002;
+    display: block;
+    height:150px;
+    width: 150px;
+    border: 1px solid skyblue;
+    border-radius: 10px;
+}
+
+.post-info{
+    float:right;
+}
+
+.like{
+    line-height:20px;
+}
+
+.posting{
+    position: fixed;
+    bottom:0;
+    left:25%;
+    z-index: 99;
+}
+
+#textarea{
+    padding:10px;
+    border-radius:10px;
+    border:1px solid royalblue;
+    width:800px;
+    height:200px;
+    font-size:20px;
+    letter-spacing: 2px;
+    background-color:#dfffff;
+}
+
+#textarea:focus{
+    outline: 0;
+}
+
+#submit{
+    color:royalblue;
+    text-align: center;
+    height:50px;
+    width:800px;
+    background-color:white;
+    font-size:20px;
+    font-family: 'Kiwi Maru', serif;
+    letter-spacing: 3px;
+    border-radius:10px;
+    border:1px solid royalblue;
+}
+
+.posting form{
+    display: relative;
+    display:none;
+    z-index:99;
+    width:1000px;
+    height:250px;
+}
+
+.fa-angle-up{
+    display: block;
+    position: fixed;
+    bottom:10px;
+    left:0;
+    right:0;
+    margin:0 auto;
+    z-index:-1;
+    text-align: center;
+    color:white;
+    font-size:40px;
+    background-color:skyblue;
+    border-radius: 50%;
+    height:40px;
+    width:40px;
+    border:1px solid white;
+}
+
+#img-url{
+    height:100px;
+    width:200px;
+    float:right;
+    text-align: center;
+    border-radius:10px;
+    border:1px solid royalblue;
+    background-color:#dfffff;
+}
+
+#img-url:focus{
+    outline: 0;
+}
+
+#image-text{
+    border:1px solid skyblue;
+    float:right;
+    height:200px;
+    width:150px;
+}
+
+.guest{
+    margin-top:30px;
+    height:78%;
+    color:skyblue;
+    justify-content: center;
+    align-items: center;
+    border:1px solid skyblue;
+}
+
+#caveat{
+    margin-top:100px;
+    font-size:45px;
+}
+
+.guest p{
+    text-align: center;
+    font-size:30px;
+    font-family: 'Anton', sans-serif;
+    font-weight: lighter;
+    letter-spacing: 3px;
+    border:1px solid skyblue;
+}
+
+.guest a{
+    color:white;
+    background-color: skyblue;
+    text-decoration: none;
+    padding: 0 10px;
+}
+
+.guest a:hover{
+    background-color:aqua;
+}
+
+#guest-p{
+    margin-top:120px;
+    font-size:40px;
+    margin-bottom:-20px;
+}
+
+#if-guest{
+    margin-top:80px;
+    margin-bottom:20px;
+    margin-left:auto;
+    margin-right: auto;
+    background-color: skyblue;
+    color:white;
+    width:30%;
+}
+
+#like-form{
+    margin-left:20px;
+    font-size:20px;
+    display:inline;
+    line-height:20px;
+}
+
+#del{
+    display:inline;
+    float:right;
+    margin-top:15px;
+    margin-right:300px;
+}
+
+#del button{
+    background-color:skyblue;
+    color:white;
+    font-size:15px;
+    border:none;
+    padding:5px;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+.fa-sign-language{
+    display:inline;
+    color:royalblue;
+    font-size:25px;
+    cursor: pointer;
+}
+
+.openImg{
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    height:auto !important;
+    width:auto !important;
+    border: none;
+    border-radius: 0;
+    background-color:white;
+    z-index:10003;
+    margin:0;
+}
+
+.body-class{
+    background-color:white;
+    opacity:0.2;
+}
+
+.w-wrapper{
+    top:0;
+    position: fixed;
+    z-index:1;
+    height:100%;
+    width:100%;
+    background-color:#dfffff;
+    opacity:0.4;
+    display:none;
+}
+
+.error{
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:80px;
+    width:400px;
+    padding:20px 0;
+    border:1px solid skyblue;
+}
+
+.error li{
+    margin-bottom:10px;
+    color:green;
+    list-style: none;
+    text-align: center;
+}
+
+#log{
+    border:1px solid skyblue;
+    margin-top:30px;
+    color:skyblue;
+    text-align: center;
+    font-size:40px;
+    letter-spacing: 2px;
+    font-family: 'Anton', sans-serif;
+    font-weight: lighter;
+}
+
+.fadeIn{
+    opacity:1;
+    
+}
+
+.myInfo{
+    position: absolute;
+    top:10px;
+    left:30px;
+    display:block;
+    width:250px;
+    height:80px;
+    border:1px solid skyblue;
+    border-radius: 50px;
+}
+
+.myInfo img{
+    height:78px;
+    width:78px;
+    display:block;
+    float:right;
+    margin-right:40px;
+    border:1px solid skyblue;
+}
+
+.myInfo span{
+    font-family: "Hannari",'Bona Nova', serif;;
+    line-height:80px;
+    margin-top:100px;
+    margin-left:20px;
+    color:skyblue;
+    padding:5px 10px;
+}
+
+.myInfo a{
+    display:block;
+    text-decoration:none ;
+}
+
+.imgSum-img{
+    display:block;
+    width:80px;
+    height:80px;
+    float:left;
+    margin:5px;
+    border:1px solid white;
+}
+
+.img-wrapper{
+    margin-top:50px;
+    float:right;
+    height:auto;
+    width:180px;
+    background-color: skyblue;
+}
+
+.open{
+    display:block;
+}
+
+.open2{
+    display:block;
+}
+
+.admin{
+    position:fixed;
+    left:0;
+    right:0;
+    z-index:10001;
+    margin:0 auto;
+    top:50px;
+    height:80%;
+    width:80%;
+    background-color:#dfffff;
+    border:1px solid royalblue;
+    color:royalblue;
+    display:none;
+    border-radius: 10px;
+}
+
+.leftText{
+    float:left;
+    width:45%;
+    text-align: center;
+}
+
+.rightText{
+    float:right;
+    width:45%;
+    text-align: center;
+}
+
+.topText{
+    background-image: url(/images/26656.jpg);
+    margin-top:50px;
+    width:100%;
+    height:250px;
+    text-align: center;
+}
+
+.textContent{
+    margin-top:30px;
+    width:100%;
+    font-size:14px;
+}
+
+.topText h3{
+    display:inline-block;
+}
+
+.twitter-follow-button{
+    margin-top:10px;
+}
+
+#adminImg{
+    display:inline-block;
+    width:150px;
+    height:150px;
+}
+
+.fa-times{
+    font-size:25px;
+    position: absolute;
+    top:15px;
+    right:25px;
+    cursor: pointer;
+}
+
+.fa-bars{
+    display:none !important;
+}
+
+.postUserInfo{
+    display:inline-block;
+    margin-top:10px;
+}
+
+#likeInfo{
+    display:inline;
+}
+
+#data{
+    float:right;
+    margin-top:20px;
+    margin-right:270px;
+}
+
+@media(max-width:670px){
+    .img-wrapper{
+        display:none;
+
+    }
+
+    .fa-bars{
+        display:block !important;
+        position:fixed;
+        top: 40px;
+        right:10px;
+        font-size:30px;
+        border-radius: 50%;
+        padding:10px;
+        background-color: skyblue;
+        color:white;
+        border:1px solid white;
+        z-index:10000;
+    }
+
+    .info ul{
+        display:none;
+        position: fixed;
+        top:0;
+        left:0;
+        margin-top:0;
+        width:100%;
+        height:100px;
+        background-color: rgba(255,255,255,0.8);
+        text-align: center;
+        z-index:9999;
+    }
+
+    .info li{
+        margin-top:30px;
+        margin-left:10px;
+    }
+
+    .myinfo{
+        display:none;
+    }
+
+    .posting{
+        left:0;
+        bottom:50px;
+    }
+
+    #textarea{
+        width:67%;
+        height:67%;
+    }
+
+    #submit{
+        width:67%;
+    }
+    
+    #img-url{
+        float:left;
+        display: inline;
+        width:67%;
+        height:15%;
+    }
+    
+    .post-wrapper{
+        width:95%;
+
+    }
+
+    .icon{
+        height:70px;
+        width:70px;
+    }
+
+    .content-img{
+        height:100px;
+        width:100px;
+    }
+
+    .content{
+        margin-left:30px;
+        min-height: 100px;
+        height:auto;
+        width:93%;
+        margin-bottom:30px;
+    }
+
+    .post{
+        height:auto;
+        min-height: 150px;
+    }
+
+    .textContent{
+        font-size:11px;
+    }
+
+    .admin{
+        top:20px;
+        height:95%;
+        width:95%;
+    }
+
+    #deltn{
+        margin-left: 0;
+    }
+
+    .content p{
+        font-size:15px;
+    }
+
+    .imgDiv{
+        width:100%;
+    }
+
+    .content-img{
+        margin-left:auto;
+        margin-right:auto;
+    }
+
+    #data{
+        position:relative;
+        left:270px;
+        font-size:7px;
+        height:5px;
+        width:110px;
+    }
+
+}
+
+@media(max-width:480px){
+
+    .textContent{
+        margin-top:0;
+        font-size:12px;
+    }
+
+    .topText{
+        margin-top:0;
+        height:170px;
+    }
+
+    .rightText{
+        width:100%;
+    }
+
+    .leftText{
+        width:100%;
+    }
+
+    #adminImg{
+        height:70px;
+        width:120px;
+    }
+
+    .admin{
+        top:0;
+        height:95%;
+    }
+
+    .openImg{
+        max-height:100%;
+        max-width:100%;
+        top:50%;
+    }
+
+    #del{
+        margin-top:20px;
+        margin-right:20px;
+    }
+
+    #del button{
+        font-size:13px;
+        padding:1px;
+    }
+
+    .fa-bars{
+        top:10px;
+    }    
+
+    .icon{
+        height:50px;
+        width:50px;
+    }
+
+    .content-img{
+        margin-left:auto;
+        margin-right:auto;
+    }
+
+    .post{
+        margin:10;
+    }
+
+    .content{
+        width:85%;
+        padding-bottom:0;
+        margin-bottom:10px;
+        min-height:50px;
+    }
+
+    .content p{
+        font-size:14px;
+    }
+
+    .fa-sign-language{
+        font-size:22px;
+        color:royalblue;
+    }
+
+    #favo-submit{
+        background-color:transparent;
+        border:1px solid skyblue;
+        outline: none;
+    }
+
+    .like{
+        font-size:20px;
+    }
+
+    .info a{
+        font-size:19px;
+
+    }
+
+    .info li{
+        margin-left:0;
+        margin-top:20px;
+    }
+
+    .info ul{
+        padding-left:10px;
+        height:70px;
+    }
+
+    .postUserInfo{
+        height:10px;
+    }
+
+    .imgDiv{
+        width:100%;
+    }
+
+    #likeInfo{
+        display: inline-block;
+        margin-top:10px;
+        font-size:18px;
+    }
+
+    #data{
+        position:relative;
+        left:270px;
+        font-size:5px;
+        height:5px;
+        width:110px;
+    }
+}
+
+@media(max-width:378px){
+    .content{
+        margin-left:10px;
+        width:93%;
+        padding-bottom:0;
+    }
+
+    .content p{
+        font-size:14px;
+    }
+
+    .imgDiv{
+        width:100%;
+        
+    }
+
+    .content-img{
+        margin-left:auto;
+        margin-right:auto;
+    }
+
+    .post-info{
+        font-size:13px;
+    }
+
+    .post a{
+        font-size:12px;
+    }
+
+    .info ul{
+        height:110px;
+    }
+
+    .textContent{
+        margin-top:0;
+        font-size:12px;
+    }
+
+    #del{
+        margin-top:20px;
+        margin-right:20px;
+    }
+
+    #del button{
+        font-size:13px;
+        padding:1px;
+    }
+
+    .post-wrapper{
+        width:100%;
+        margin-left:0;
+    }
+
+    #textarea{
+        height:200px;
+        width:98%;
+        float:left;
+    }
+
+    #postForm{
+        width:100%;
+    }
+
+    #submit{
+        width:98%;
+    }
+
+    #img-url{
+        width:98%;
+        height:20px;
+    }
+
+    .posting{
+        bottom:30%;
+    }
+
+    .fa-sign-language{
+        font-size:18px;
+    }
+
+    #like-form{
+        font-size:14px;
+    }
+
+    #postName{
+        font-size:13px;
+        margin-left:0;
+    }
+
+    .rightText{
+        width:100%;
+    }
+
+    .leftText{
+        width:100%;
+    }
+
+    #adminImg{
+        height:70px;
+        width:120px;
+    }
+
+    .admin{
+        top:0;
+        height:99%;
+    }
+
+    .topText{
+        height:170px;
+    }
+
+    .openImg{
+        max-height:100%;
+        max-width:100%;
+        top:50%;
+    }
+
+    .content{
+        margin-top:0;
+        width:92%;
+        min-height:50px;
+        margin-bottom:20px;
+    }
+
+    .postUserInfo{
+        height:10px;
+    }
+
+    #likeInfo{
+        display: inline-block;
+        margin-top:10px;
+        font-size:18px;
+    }
+
+    #data{
+        position:relative;
+        bottom:20px;
+        left:270px;
+        font-size:5px;
+        height:5px;
+        width:130px;
+    }
+
+}

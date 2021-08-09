@@ -1,0 +1,93 @@
+html,body{
+    background-color:#dfffff;
+}
+
+*{
+    box-sizing: border-box;
+    font-weight: lighter;
+}
+
+h2{
+    border:1px solid skyblue;
+    margin-top:30px;
+    color:skyblue;
+    text-align: center;
+    font-size:40px;
+    letter-spacing: 2px;
+    font-family: 'Anton', sans-serif;
+    font-weight: lighter;
+}
+
+.wrapper{
+    width:800px;
+    border:1px solid skyblue;
+    font-size: 20px;
+    margin-left:auto;
+    margin-right:auto;
+    letter-spacing: 2px;
+    font-family: 'Anton', sans-serif;
+    font-weight: lighter;
+}
+
+p{
+    margin-top:50px;
+    color:skyblue;
+}
+
+
+form{
+    text-align: center;
+}
+
+#submit{
+    font-family: 'Anton', sans-serif;
+    letter-spacing: 2px;
+    margin-top: 50px;
+    width:120px;
+    font-size:20px;
+    background-color:skyblue;
+    color:white;
+    border:0;
+}
+
+#submit:hover{
+    background-color:aqua;
+}
+
+input{
+    width:300px;
+    text-align: center;
+    border:1px solid skyblue;
+    border-radius: 15px;
+}
+
+input:focus{
+    outline:none;
+}
+
+@media(max-width:670px){
+    .wrapper{
+        width:100%;
+    }
+
+    input{
+        height:40px;
+        width:500px;
+    }
+
+    #submit{
+        height:40px;
+        width:200px;
+    }
+}
+
+@media(max-width:480px){
+    input{
+        width:300px;
+        height:20px;
+    }
+
+    #submit{
+        height:30px;
+    }
+}
