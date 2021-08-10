@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>log</title>
+    <link rel="stylesheet" href="/css/top.css">
+    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+</head>
+<body>
+    <%-include('logo.ejs');%>
+
+    <div class="info">
+        <ul>
+            <li><a href="/mypage">mypage</a></li>
+            <li><a href="/logout">logout</a></li>
+        </ul>
+    </div>
+
+    <h2 id="log">log</h2>
+    
+    <div class="post-wrapper">
+        <%post.forEach((posted)=>{%>
+        <div class="post">
+            <img class="icon" src="<%=posted.icon%>">
+                <a href="/user/<%=posted.id%>"><%=posted.username%></a>    <!--投稿者-->
+            <p class="post-info">|　　<%=posted.date%> <span class="like"><form action="/" method="post" id="like-form"><%=posted.favo%></span> <button type="submit" name="favoid" value="<%=posted.post_id%>" id="favo-submit"><i class="fas fa-sign-language"></i></button></form>
+            
+                <%if(posted.user_id ===locals.userId){%>
+                    <form action="/" method="post" id="del">
+                        <button type="submit" name="del" value="<%=posted.post_id%>">delete</button>
+                    </form>
+                <%}%></p>         <!--投稿日表示-->
+            
+            
+            <div class="content">
+                <p><%=posted.text%></p>         <!--投稿内容-->
+            </div>
+            <%if(posted.img===""){%>     <!--画像のアドレスを入力しimgタグで表示-->
+                
+            <%}else{%>
+                <img class="content-img" src="<%=posted.img%>" alt="">
+            <%}%>
+        </div>
+        <%})%>
+    </div>
+    
+</body>
+</html>

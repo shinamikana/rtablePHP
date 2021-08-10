@@ -31,7 +31,7 @@
             <i class="fas fa-bars"></i>
             <ul>
                 <li><a id="adminBtn">who is admin?</a></li>
-                <li><a href="/login">login</a></li>
+                <li><a href="/login.php">login</a></li>
                 <li><a href="/signup">signup</a></li>
                 <li><a href="/mypage">mypage</a></li>
                 <li><a href="/logout">logout</a></li>
@@ -40,11 +40,11 @@
 
                 
         <div class="myInfo">
-        <%if(locals.userId !== undefined){%>
-            <a href="/mypage"><span><%=myInfo.username%></span><img src="<%=myInfo.icon%>"></a>
-        <%}else{%>
+        <?php if(isset($_SESSION['username'])):?>
+            <a href="/mypage"><span><?php echo $_SESSION['username']?></span><img src="<%=myInfo.icon%>"></a>
+        <?php else:?>
             <a><span>guest</span><img src="/images/icon.jpg" alt=""></a>
-        <%}%>
+        <?php endif ?>
         </div>
 
         <div class="img-view">
