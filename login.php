@@ -4,9 +4,9 @@
     $username = 'b5ca0c8294a634';
     $password = 'e09e4331';
     $pdo=new PDO($dsn,$username,$password,$driver_options);
-    if(isset($_SESSION['username'])){
+    if(isset($_SESSION['id'])){
         session_regenerate_id(TRUE);
-        header('Location : index.php');
+        header('Location:index.php');
         exit();
     }
     
@@ -20,13 +20,13 @@
             $login->bindParam(1,$_POST['email'],PDO::PARAM_STR,150); 
             $login->execute();
             $result = $login->fetch(PDO::FETCH_ASSOC);
-           
-                if(!password_verify($_POST['password'],$rusult['password'])){
+                if(!password_verify($_POST['password'],$result['password'])){
                   $message = 'do not match';
                 }else{
                  session_regenerate_id(TRUE);
-                 $_SESSION['username'] = $_POST['username'];
+                 $_SESSION['username'] = $result['username'];
                  $_SESSION['id'] = $result['id'];
+                 $_SESSION['icon'] = $result['icon'];
                  header('Location:index.php');
                  exit();
                 }
@@ -48,7 +48,7 @@
         <title>login</title>
     </head>
     <body>
-        
+        <?php include('logo.php');?>
         <p class="error"><?php echo $message?></p>
         <h2>login</h2>
         <div class="wrapper">

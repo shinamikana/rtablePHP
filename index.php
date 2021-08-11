@@ -15,7 +15,8 @@
         <link href="https://fonts.googleapis.com/css2?family=Bona+Nova&display=swap" rel="stylesheet">
     </head>
     <body>
-        <?php $dsn = 'mysql:dbname=heroku_3bf83702ed90efb;host=us-cdbr-east-04.cleardb.com;charset=utf8' ?>
+        <?php session_start();
+            $dsn = 'mysql:dbname=heroku_3bf83702ed90efb;host=us-cdbr-east-04.cleardb.com;charset=utf8' ?>
         <?php $driver_options = [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,PDO::ATTR_EMULATE_PREPARES => false,];
             $username = 'b5ca0c8294a634';
             $password = 'e09e4331'?>
@@ -25,23 +26,26 @@
         <div class="w-wrapper">
         </div>
 
-        <%-include('logo.ejs');%>
+        <?php include('logo.php'); ?>
 
         <div class="info">
             <i class="fas fa-bars"></i>
             <ul>
                 <li><a id="adminBtn">who is admin?</a></li>
+                <?php if(count($_SESSION) !== 0):?>
+                <li><a href="/mypage">mypage</a></li>
+                <li><a href="/logout.php">logout</a></li>
+                <?php else: ?>
                 <li><a href="/login.php">login</a></li>
                 <li><a href="/signup">signup</a></li>
-                <li><a href="/mypage">mypage</a></li>
-                <li><a href="/logout">logout</a></li>
+                <?php endif?>
             </ul>
         </div>
 
                 
         <div class="myInfo">
-        <?php if(isset($_SESSION['username'])):?>
-            <a href="/mypage"><span><?php echo $_SESSION['username']?></span><img src="<%=myInfo.icon%>"></a>
+        <?php if(count($_SESSION) !== 0):?>
+            <a href="/mypage"><span><?php echo $_SESSION['username']?></span><img src="<?php echo $_SESSION['icon'] ?>"></a>
         <?php else:?>
             <a><span>guest</span><img src="/images/icon.jpg" alt=""></a>
         <?php endif ?>
@@ -172,6 +176,6 @@
         });
 
         </script>
-        <script async src="/js/app.js"></script>
+        <script async src="/public/js/app.js"></script>
     </body>
 </html>
