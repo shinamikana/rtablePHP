@@ -101,7 +101,7 @@
             <div class="post">
                 <img class="icon" src="<?php echo $post['icon']?>">
                 <a href="/user/<%=posted.id%>"><?php echo $post['username']?></a>    <!--投稿者-->
-                <p class="post-info">|　　<?php echo $post['date']?> <span class="like"><form action="/" method="post" id="like-form"><?php echo $post['favo']?></span> <button type="submit" name="favoid" value="<%=posted.post_id%>" id="favo-submit"><i class="fas fa-sign-language"></i></button></form>
+                <p class="post-info"><span class="like"><form action="/" method="post" id="like-form"><?php echo $post['favo']?></span> <button type="submit" name="favoid" value="<%=posted.post_id%>" id="favo-submit"><i class="fas fa-sign-language"></i></button></form>
                     <%if(posted.user_id ===locals.userId){%>
                         <form action="/" method="post" id="del">
                             <input type="hidden" name="_csrf" value="<%=csrfToken%>">
@@ -114,8 +114,11 @@
                         <p><?php echo $post['text']?></p>         <!--投稿内容-->
                     </div>
                     <?php if($post['img'] !== ''):?>
-                        <img class="content-img" src="<?php echo $post['img']?>" alt="">
+                        <div class="imgDiv">
+                            <img class="content-img" src="<?php echo $post['img']?>" alt="">
+                        </div>
                     <?php endif?>
+                    <span id="data"><?php echo $post['date']?></span>
                 </div>
                 <?php endforeach?>
             </div>
