@@ -10,10 +10,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>logout</title>
+    <link rel="stylesheet" href="/public/css/logout.css">
 </head>
 <body>
     <?php include('logo.php'); ?>
     <h1>logout</h1>
-    <p>logout done/p>
+    <p>logout done</p>
 </body>
 </html>
