@@ -1,3 +1,5 @@
+<?php require_once('dateBase.php'); ?>
+<!DOCTYPE html>
 <html lag="ja">
     <head>
         <meta charset="utf-8">
@@ -15,12 +17,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Bona+Nova&display=swap" rel="stylesheet">
     </head>
     <body>
-        <?php session_start();
-            $dsn = 'mysql:dbname=heroku_3bf83702ed90efb;host=us-cdbr-east-04.cleardb.com;charset=utf8' ?>
-        <?php $driver_options = [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,PDO::ATTR_EMULATE_PREPARES => false,];
-            $username = 'b5ca0c8294a634';
-            $password = 'e09e4331'?>
-        <?php $pdo=new PDO($dsn,$username,$password,$driver_options);?>
             <?php $postView = $pdo->prepare('SELECT * FROM post JOIN users ON user_id=id ORDER BY post_id DESC'); ?>
 
         <div class="w-wrapper">
@@ -33,11 +29,11 @@
             <ul>
                 <li><a id="adminBtn">who is admin?</a></li>
                 <?php if(count($_SESSION) !== 0):?>
-                <li><a href="/mypage">mypage</a></li>
+                <li><a href="/mypage.php">mypage</a></li>
                 <li><a href="/logout.php">logout</a></li>
                 <?php else: ?>
                 <li><a href="/login.php">login</a></li>
-                <li><a href="/signup">signup</a></li>
+                <li><a href="/signup.php">signup</a></li>
                 <?php endif?>
             </ul>
         </div>
@@ -45,7 +41,7 @@
                 
         <div class="myInfo">
         <?php if(count($_SESSION) !== 0):?>
-            <a href="/mypage"><span><?php echo $_SESSION['username']?></span><img src="<?php echo $_SESSION['icon'] ?>"></a>
+            <a href="/mypage.php"><span><?php echo $_SESSION['username']?></span><img src="<?php echo $_SESSION['icon'] ?>"></a>
         <?php else:?>
             <a><span>guest</span><img src="/images/icon.jpg" alt=""></a>
         <?php endif ?>
@@ -63,36 +59,7 @@
         <?php endforeach?>
         </div>
        
-        <div class="admin">
-            <i class="fas fa-times"></i>
-            <div class="topText">
-             <h3>Kenji Iwasaki</h3>
-             <br>
-             <img src="/images/icon.jpg" id="adminImg">
-             <br>
-             <a href="https://twitter.com/tunanikan?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-lang="en" data-show-count="false">Follow @tunanikan</a>
-            </div>
-            <div class="textContent">
-            <div class="leftText">
-              <p>Hi :)</p>
-              <p>I'm from Osaka in Japan</p>
-              <p>What do you think about the website?</p>
-              <p>I think it is not so bad, isn't it :)</p>
-              <p>I am still studying programing :)</p>
-              <p>I will create more websites, stay tuned!</p>
-              <p>thanks :)</p>
-            </div>
-            <div class="rightText">
-              <p>こんにちは！</p>
-              <p>私は大阪に住んでいます</p>
-              <p>趣味でWEBサイトの制作をしています</p>
-              <p>まだ勉強の途中なのでシンプルな作りとなりましたが</p>
-              <p>これからもWEBサイトやWEBアプリを作り続けるので</p>
-              <p>気に入って頂けたら是非仲良くしてください！</p>
-              <p>このサイトに来てくれてありがとう！</p>
-            </div>
-        </div>
-        </div>
+        <?php include('admin.php'); ?>
 
         <div class="post-wrapper">
         <?php $postView->execute()?>
@@ -102,12 +69,12 @@
                 <img class="icon" src="<?php echo $post['icon']?>">
                 <a href="/user/<%=posted.id%>"><?php echo $post['username']?></a>    <!--投稿者-->
                 <p class="post-info"><span class="like"><form action="/" method="post" id="like-form"><?php echo $post['favo']?></span> <button type="submit" name="favoid" value="<%=posted.post_id%>" id="favo-submit"><i class="fas fa-sign-language"></i></button></form>
-                    <%if(posted.user_id ===locals.userId){%>
+                    <?php if($post['id'] === $_SESSION['id']): ?>
                         <form action="/" method="post" id="del">
                             <input type="hidden" name="_csrf" value="<%=csrfToken%>">
                             <button name="del" value="<%=posted.post_id%>" id="deltn" onClick="return clickEvent()">delete</button>
                         </form>
-                    <%}%></p>         <!--投稿日表示-->
+                    <?php endif ?></p>         <!--投稿日表示-->
                     </span>
                 
                     <div class="content">
@@ -159,10 +126,6 @@
                 }
                 $('.posting').find('form').slideUp(400);
                 $('.fa-angle-up').show();
-            });
-
-            $('#adminBtn').click(()=>{
-                $('.admin').show();
             });
 
             $('.info').find('.fa-bars').click(function(){

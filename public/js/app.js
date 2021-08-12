@@ -47,7 +47,7 @@ $(()=>{
             let position = $(this).offset().top;
             let scroll = $(window).scrollTop();
             let windowHeight = $(window).height();
-            if(scroll > position - windowHeight +800){
+            if(scroll > position - windowHeight +300){
                 $(this).animate({
                     opacity:1,
                 },500);
