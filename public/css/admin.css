@@ -35,10 +35,12 @@
 }
 
 .topText{
-    background-image: url(/images/26656.jpg);
+    background-image: url(/images/low.jpg);
     margin-top:50px;
-    width:100%;
-    height:250px;
+    margin-right:auto;
+    margin-left:auto;
+    width:500px;
+    height:300px;
     text-align: center;
 }
 

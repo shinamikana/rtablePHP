@@ -1,3 +1,14 @@
+<?php   include('dateBase.php');
+    if(count($_POST) === 0){
+
+    }else{
+        if(empty($_POST['text'])){
+
+        }else{
+            
+        }
+    }
+?>
 <?php require_once('dateBase.php'); ?>
 <!DOCTYPE html>
 <html lag="ja">
@@ -69,13 +80,15 @@
                 <img class="icon" src="<?php echo $post['icon']?>">
                 <a href="/user/<%=posted.id%>"><?php echo $post['username']?></a>    <!--投稿者-->
                 <p class="post-info"><span class="like"><form action="/" method="post" id="like-form"><?php echo $post['favo']?></span> <button type="submit" name="favoid" value="<%=posted.post_id%>" id="favo-submit"><i class="fas fa-sign-language"></i></button></form>
-                    <?php if($post['id'] === $_SESSION['id']): ?>
+                <?php if(count($_SESSION) !== 0): ?>
+                    <?php if($post['user_id'] === $_SESSION['id']): ?>
                         <form action="/" method="post" id="del">
                             <input type="hidden" name="_csrf" value="<%=csrfToken%>">
                             <button name="del" value="<%=posted.post_id%>" id="deltn" onClick="return clickEvent()">delete</button>
                         </form>
-                    <?php endif ?></p>         <!--投稿日表示-->
-                    </span>
+                    <?php endif ?>         <!--投稿日表示-->
+                    <?php endif ?>
+                    </p></span>
                 
                     <div class="content">
                         <p><?php echo $post['text']?></p>         <!--投稿内容-->
@@ -93,7 +106,7 @@
 
         <div class="posting">
             <i class="fas fa-angle-up"></i>
-            <form action="/" method="post" id="postForm">
+            <form action="index.php" method="post" id="postForm">
                 <input type="hidden" name="_csrf" value="<%=csrfToken%>">
                 <textarea name="img" id="img-url" type="text" cols="30" rows="10" placeholder="http//img url~.◯◯"></textarea>
                 <textarea name="text" id="textarea" cols="30" rows="10" placeholder="text"></textarea>

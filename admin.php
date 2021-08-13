@@ -5,7 +5,7 @@
             <div class="topText">
                 <h3>Kenji Iwasaki</h3>
                 <br>
-                <img src="/images/low.jpg" id="adminImg">
+                <img src="" id="adminImg">
                 <br>
                 <a href="https://twitter.com/tunanikan?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-lang="en" data-show-count="false">Follow @tunanikan</a>
             </div>
