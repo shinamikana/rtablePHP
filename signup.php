@@ -1,3 +1,19 @@
+<?php include('dateBase.php');
+    if(isset($_SESSION['id'])){
+    session_regenerate_id(TRUE);
+    header('Location:index.php');
+    exit();
+    }
+
+    if(count($_POST) === 0){
+        $message = 'please type';
+    }else{
+        
+    }
+
+    $message = htmlspecialchars($message);
+?>
+
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -10,7 +26,10 @@
         <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
     </head>
     <body>
-        <%-include('logo.ejs');%>
+        <?php include('logo.php'); ?>
+        <div class="error">
+            <?php echo $message ?>
+        </div>
         
         <h2><span>signup</span></h2>
         
