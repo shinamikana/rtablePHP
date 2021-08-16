@@ -1,5 +1,6 @@
 html,body{
     background-color:#dfffff;
+    text-align: center;
 }
 
 *{
@@ -20,6 +21,8 @@ h2{
 
 .wrapper{
     width:800px;
+    height:auto;
+    padding-bottom:30px;
     border:1px solid skyblue;
     font-size: 20px;
     margin-left:auto;
@@ -63,6 +66,17 @@ input{
 
 input:focus{
     outline:none;
+}
+
+.error{
+    display: inline-block;
+    margin-top:0;
+    margin-bottom:50px;
+    font-family: 'Anton', sans-serif;
+    text-align: center;
+    padding:25px 200px;
+    border:1px solid aqua;
+    font-size:25px;
 }
 
 @media(max-width:670px){

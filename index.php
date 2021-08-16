@@ -1,12 +1,12 @@
 <?php   include('dateBase.php');
-    if(count($_POST) === 0){
-
-    }else{
-        if(empty($_POST['text'])){
-
-        }else{
-            
-        }
+    session_regenerate_id(TRUE);
+    $postView = $pdo->prepare('SELECT * FROM post JOIN users ON user_id=id ORDER BY post_id DESC');
+    $postView->execute();
+    if(isset($_SESSION['id'])){
+        $icon = $pdo->prepare('SELECT icon FROM users WHERE id=?');
+        $icon->bindParam(1,$_SESSION['id'],PDO::PARAM_INT);
+        $icon -> execute();
+        $iconResult = $icon->fetch();
     }
 ?>
 <?php require_once('dateBase.php'); ?>
@@ -28,7 +28,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Bona+Nova&display=swap" rel="stylesheet">
     </head>
     <body>
-            <?php $postView = $pdo->prepare('SELECT * FROM post JOIN users ON user_id=id ORDER BY post_id DESC'); ?>
 
         <div class="w-wrapper">
         </div>
@@ -39,7 +38,7 @@
             <i class="fas fa-bars"></i>
             <ul>
                 <li><a id="adminBtn">who is admin?</a></li>
-                <?php if(count($_SESSION) !== 0):?>
+                <?php if(isset($_SESSION['id'])):?>
                 <li><a href="/mypage.php">mypage</a></li>
                 <li><a href="/logout.php">logout</a></li>
                 <?php else: ?>
@@ -51,8 +50,8 @@
 
                 
         <div class="myInfo">
-        <?php if(count($_SESSION) !== 0):?>
-            <a href="/mypage.php"><span><?php echo $_SESSION['username']?></span><img src="<?php echo $_SESSION['icon'] ?>"></a>
+        <?php if(isset($_SESSION['id'])):?>
+            <a href="/mypage.php"><span><?php echo $_SESSION['username']?></span><img src="<?php echo $iconResult['icon'] ?>"></a>
         <?php else:?>
             <a><span>guest</span><img src="/images/icon.jpg" alt=""></a>
         <?php endif ?>
@@ -64,9 +63,11 @@
 
         <div class="img-wrapper">
         <?php foreach($postView->fetchAll() as $imgs):?>
+        <?php if($imgs['img'] !== ''): ?>
         <div class="img-sum">
             <img src="<?php echo $imgs['img']?>" class="imgSum-img" alt="">
         </div>
+        <?php endif ?>
         <?php endforeach?>
         </div>
        

@@ -15,8 +15,11 @@
             $login->bindParam(1,$_POST['email'],PDO::PARAM_STR,150); 
             $login->execute();
             $result = $login->fetch(PDO::FETCH_ASSOC);
+            if(!isset($result['email'])){
+                $message = 'wrong email';
+            }else{
                 if(!password_verify($_POST['password'],$result['password'])){
-                  $message = 'do not match';
+                  $message = 'do not match password';
                 }else{
                  session_regenerate_id(TRUE);
                  $_SESSION['username'] = $result['username'];
@@ -26,8 +29,9 @@
                  exit();
                 }
             }
+            }
         }
-        $message = htmlspecialchars($message);
+
         ?>
 
 
@@ -44,8 +48,11 @@
     </head>
     <body>
         <?php include('logo.php');?>
-        <p class="error"><?php echo $message?></p>
         <h2>login</h2>
+        <?php if($message === ''): ?>
+        <?php else : ?>
+        <p class="error"><?php echo $message?></p>
+        <?php endif ?>
         <div class="wrapper">
             <form action="login.php" method="post">
             <p>email</p>

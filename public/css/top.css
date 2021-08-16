@@ -141,7 +141,7 @@ li{
 
 .posting{
     position: fixed;
-    bottom:0;
+    bottom:50px;
     left:25%;
     z-index: 99;
 }
