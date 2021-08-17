@@ -28,6 +28,15 @@
             'reference' => 'd56bf6102915de5702778fe20f2de3b2fe570b5b',
             'dev_requirement' => true,
         ),
+        'heroku/heroku-buildpack-php' => array(
+            'pretty_version' => 'v196',
+            'version' => '196.0.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../heroku/heroku-buildpack-php',
+            'aliases' => array(),
+            'reference' => '0ade6e8c8bcdcfa7b193d5c2e341aa681fe4e2a1',
+            'dev_requirement' => true,
+        ),
         'myclabs/deep-copy' => array(
             'pretty_version' => '1.10.2',
             'version' => '1.10.2.0',
