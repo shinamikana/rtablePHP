@@ -101,13 +101,15 @@ li{
 }
 
 .content{
+    position: relative;
+    left:-50px;
     background-color:#dfffff;
     width:auto;
     min-width:70%;
     min-height:150px;
     height:auto;
     float:left;
-    margin-right:20px;
+    margin-right:0px;
     border:1px solid skyblue;
     border-radius: 10px;
     color:royalblue;
@@ -123,6 +125,8 @@ li{
 }
 
 .content-img{
+    position: relative;
+    left:-20px;
     z-index:10002;
     display: block;
     height:150px;

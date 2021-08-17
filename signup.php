@@ -22,7 +22,7 @@
                 if(!isset($checkResult)){
                     $message = 'email is Duplicate';
                 }else{
-                    $signup = $pdo->prepare('INSERT INTO users (username,email,password) VALUE (?,?,?)');
+                    $signup = $pdo->prepare('INSERT INTO users (username,email,password) VALUES (?,?,?)');
                     $signup -> bindParam(1,$_POST['username'],PDO::PARAM_STR,10);
                     $signup -> bindParam(2,$_POST['email'],PDO::PARAM_STR,150);
                     $signup -> bindParam(3,$hashPass,PDO::PARAM_STR,150);
@@ -64,9 +64,9 @@
         <div class="wrapper">
             <form action="signup.php" method="post">
                 <p>username([a-zA-Z0-9]{1,10})</p>
-                <input name="username" pattern="^([a-zA-Z0-9]{1,15})$">
+                <input name="username" pattern="^([a-zA-Z0-9]{1,15})$" value="<?php if(!empty($_POST['username'])){echo $_POST['username'];} ?>">
                 <p>email</p>
-                <input type="email" name="email" >
+                <input type="email" name="email" value="<?php if(!empty($_POST['email'])){echo $_POST['email'];} ?>">
                 <p>password([a-zA-Z0-9]{1,50})</p>
                 <input type="password" name="password" pattern="^([a-zA-Z0-9]{1,50})$">
                 <p>retype password</p>

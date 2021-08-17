@@ -56,7 +56,7 @@
         <div class="wrapper">
             <form action="login.php" method="post">
             <p>email</p>
-             <input name="email">
+             <input name="email" value="<?php if(!empty($_POST['email'])){echo $_POST['email'];} ?>">
              <p>password</p>
              <input type="password" name="password">
              <br>
