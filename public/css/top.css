@@ -44,7 +44,6 @@ li{
     background-color: skyblue;
     border-radius: 10px;
     cursor:pointer;
-    border:1px solid skyblue;
 }
 
 .info a:hover{

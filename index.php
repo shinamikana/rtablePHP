@@ -182,21 +182,12 @@
                 }
             }
 
+            
+            //PHPでonclick時に切り替えるように
             const darking = ()=>{
-                let dark = document.getElementById('dark');
-                let check = document.getElementById('check');
-                let html = document.documentElement;
-                let body = document.body;
-                let imgW = document.getElementById('imgW');
-                let logoA = document.getElementById('logoA');
-                let logoS = document.getElementById('logoS');
-                let textarea = document.getElementById('textarea');
-                let submit = document.getElementById('submit');
-                let imgUrl = document.getElementById('img-url');
-                let admin = document.getElementById('admin');
-                let txtC = document.getElementById('txtcontent');
-                let faBg = document.getElementById('faW');
-                if(!check.classList.contains('postD')){
+                
+                if(phpDark == 0 || phpDark == undefined){
+                    <?php $_SESSION['dark'] = 1 ?>
                     dark.classList.add('rotate');
                     check.classList.add('postD');
                     html.classList.add('postD');
@@ -216,6 +207,7 @@
                     posting();
                     infoD();
                 }else{
+                    <?php $_SESSION['dark'] = 0 ?>
                     removeDark();
                     rInfoD();
                     check.classList.remove('postD');
