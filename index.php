@@ -12,7 +12,7 @@
     if(count($_POST) === 0){    //POSTの有無確認
         $message = '';
     }else{
-        if(isset($_POST['text']) && isset($_POST['img'])){    //投稿フォームの各POSTのどちらかが空でなければ投稿
+        if(!empty($_POST['text']) && !empty($_POST['img'])){    //投稿フォームの各POSTのどちらかが空でなければ投稿
             //日時取得
             date_default_timezone_set('Asia/Tokyo');
             $date = date('Y/m/d/ H:i:s');
@@ -37,8 +37,11 @@
                 $post -> execute();
                 header('Location:index.php');
             }
+        }else{
+            $message = 'please type text or imgurl';
         }
         
+        //いいねフォームが空でなければ ＝　送信されれば
         if(!empty($_POST['favoid'])){
             if(isset($_SESSION['id'])){
                 $hfavo = $pdo->prepare('UPDATE users SET give_like = give_like+1 WHERE id = ?');
@@ -71,6 +74,9 @@
         <link href="https://fonts.googleapis.com/css2?family=Bona+Nova&display=swap" rel="stylesheet">
     </head>
     <body>
+        <div class="faWrapper" id="faW">
+            <i class="fas fa-adjust" id="dark" onclick="darking()"></i>
+        </div>
 
         <div class="w-wrapper">
         </div>
@@ -80,13 +86,13 @@
         <div class="info">
             <i class="fas fa-bars"></i>
             <ul>
-                <li><a id="adminBtn">who is admin?</a></li>
+                <li><a id="adminBtn" class="infoLi">who is admin?</a></li>
                 <?php if(isset($_SESSION['id'])):?>
-                <li><a href="/mypage.php">mypage</a></li>
-                <li><a href="/logout.php">logout</a></li>
+                <li><a href="/mypage.php" class="infoLi">mypage</a></li>
+                <li><a href="/logout.php" class="infoLi">logout</a></li>
                 <?php else: ?>
-                <li><a href="/login.php">login</a></li>
-                <li><a href="/signup.php">signup</a></li>
+                <li><a href="/login.php" class="infoLi">login</a></li>
+                <li><a href="/signup.php" class="infoLi">signup</a></li>
                 <?php endif?>
             </ul>
         </div>
@@ -100,11 +106,15 @@
         <?php endif ?>
         </div>
 
+        <?php if($message !== ''): ?>
+        <p class="error"><?php echo $message ?></p>
+        <?php endif ?>
+
         <div class="img-view">
             <img src="">
         </div>
 
-        <div class="img-wrapper">
+        <div class="img-wrapper" id="imgW">
         <?php foreach($postView->fetchAll() as $imgs):?>
         <?php if($imgs['img'] !== ''): ?>
         <div class="img-sum">
@@ -116,28 +126,29 @@
        
         <?php include('admin.php'); ?>
 
-        <p class="error"><?php echo $message ?></p>
 
-        <div class="post-wrapper">
+        <div class="post-wrapper" id="check">
         <?php $postView->execute()?>
             <?php foreach($postView->fetchAll() as $post):?>
 
             <div class="post">
                 <img class="icon" src="<?php echo $post['icon']?>">
-                <a href="/user/<?php echo $post['post_id'] ?>"><?php echo $post['username']?></a>    <!--投稿者-->
+                <form method="get" action="user.php" name="<?php echo 'form'.$post['post_id'] ?>">
+                    <input type="hidden" name="userId" value="<?php echo $post['user_id'] ?>">
+                    <a href="#" onclick="document.<?php echo 'form'.$post['post_id'] ?>.submit();"class="userName"><?php echo $post['username']?></a>
+                </form>
                 <p class="post-info"><span class="like"><form action="index.php" method="post" id="like-form"><?php echo $post['favo']?></span> <button type="submit" name="favoid" value="<?php echo $post['post_id'] ?>" id="favo-submit"><i class="fas fa-sign-language"></i></button></form>
-                <?php if(count($_SESSION) !== 0): ?>
+                <?php if(isset($_SESSION['id'])): ?>
                     <?php if($post['user_id'] === $_SESSION['id']): ?>
                         <form action="/" method="post" id="del">
-                            <input type="hidden" name="_csrf" value="<%=csrfToken%>">
-                            <button name="del" value="<%=posted.post_id%>" id="deltn" onClick="return clickEvent()">delete</button>
+                            <button name="del" value="<?php echo $post['post_id'] ?>" id="deltn" onClick="return clickEvent()">delete</button>
                         </form>
-                    <?php endif ?>         <!--投稿日表示-->
+                    <?php endif ?>
                     <?php endif ?>
                     </p></span>
                 
                     <div class="content">
-                        <p><?php echo $post['text']?></p>         <!--投稿内容-->
+                        <p class="contentP"><?php echo $post['text']?></p>         <!--投稿内容-->
                     </div>
                     <?php if($post['img'] !== ''):?>
                         <div class="imgDiv">
@@ -168,6 +179,121 @@
                     form.submit();
                 }else{
                     return false;
+                }
+            }
+
+            const darking = ()=>{
+                let dark = document.getElementById('dark');
+                let check = document.getElementById('check');
+                let html = document.documentElement;
+                let body = document.body;
+                let imgW = document.getElementById('imgW');
+                let logoA = document.getElementById('logoA');
+                let logoS = document.getElementById('logoS');
+                let textarea = document.getElementById('textarea');
+                let submit = document.getElementById('submit');
+                let imgUrl = document.getElementById('img-url');
+                let admin = document.getElementById('admin');
+                let txtC = document.getElementById('txtcontent');
+                let faBg = document.getElementById('faW');
+                if(!check.classList.contains('postD')){
+                    dark.classList.add('rotate');
+                    check.classList.add('postD');
+                    html.classList.add('postD');
+                    body.classList.add('postD');
+                    imgW.classList.add('postD');
+                    textarea.classList.add('postD');
+                    textarea.classList.add('darkContentP');
+                    submit.classList.add('darkContentP');
+                    submit.classList.add('postD');
+                    imgUrl.classList.add('postD');
+                    imgUrl.classList.add('darkContentP');
+                    admin.classList.add('postD');
+                    txtC.classList.add('darkContentP');
+                    logoA.classList.add('bgD');
+                    logoS.classList.add('colorD');
+                    faBg.classList.add('lightBg');
+                    posting();
+                    infoD();
+                }else{
+                    removeDark();
+                    rInfoD();
+                    check.classList.remove('postD');
+                    html.classList.remove('postD');
+                    body.classList.remove('postD');
+                    dark.classList.add('rRotate');
+                    imgW.classList.remove('postD');
+                    logoA.classList.remove('bgD');
+                    logoS.classList.remove('colorD');
+                    textarea.classList.remove('postD');
+                    submit.classList.remove('postD');
+                    submit.classList.remove('darkContentP');
+                    textarea.classList.remove('darkContentP');
+                    imgUrl.classList.remove('postD');
+                    imgUrl.classList.remove('darkContentP');
+                    admin.classList.remove('postD');
+                    txtC.classList.remove('darkContentP');
+                    dark.classList.remove('rotate');
+                    faBg.classList.remove('lightBg');
+                }
+            }
+
+            let count = 0;
+            let posts = document.getElementsByClassName('post');
+            let content = document.getElementsByClassName('content');
+            let darkP = document.getElementsByClassName('contentP');
+            let userName = document.getElementsByClassName('userName');
+            const posting = ()=>{
+                posts[count].classList.add('postD');
+                content[count].classList.add('postD');
+                darkP[count].classList.add('darkContentP');
+                userName[count].classList.add('darkContentP');
+                ++count ;
+                const timer = setTimeout(posting);
+                console.log(posts.length);
+                console.log(count);
+                if(count === posts.length){
+                    clearTimeout(timer);
+                }
+            }
+
+            let haveDark = document.getElementsByClassName('postD');
+            let haveDarkP = document.getElementsByClassName('darkContentP');
+            let count2 = 0;
+            const removeDark = ()=>{
+                count--;
+                posts[count].classList.remove('postD');
+                content[count].classList.remove('postD');
+                darkP[count].classList.remove('darkContentP');
+                userName[count].classList.remove('darkContentP');
+                console.log(haveDarkP);
+                console.log(haveDark);
+                const removeTimer = setTimeout(removeDark);
+                if(count === 0 ){
+                    clearTimeout(removeTimer);
+                    count = 0;
+                }
+            }
+
+            let infoLi = document.getElementsByClassName('infoLi');
+            let count3 = 0;
+
+            const infoD = ()=>{
+                infoLi[count3].classList.add('bgD');
+                ++count3;
+                const ifnoTimer = setTimeout(infoD);
+
+                if(infoLi.length === count3){
+                    clearTimeout(infoTimer);
+                }
+            }
+
+            const rInfoD = ()=>{
+                --count3;
+                infoLi[count3].classList.remove('bgD');
+                const removeInfoTimer = setTimeout(rInfoD);
+                if(count3 === 0){
+                    clearTimeout(removeInfoTimer);
                 }
             }
         

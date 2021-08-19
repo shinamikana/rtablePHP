@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="/public/css/admin.css">
 
-<div class="admin">
+<div class="admin" id="admin">
             <i class="fas fa-times"></i>
             <div class="topText">
                 <h3>Kenji Iwasaki</h3>
@@ -9,7 +9,7 @@
                 <br>
                 <a href="https://twitter.com/tunanikan?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-lang="en" data-show-count="false">Follow @tunanikan</a>
             </div>
-            <div class="textContent">
+            <div class="textContent" id="txtcontent">
                 <div class="leftText">
                     <p>Hi :)</p>
                     <p>I'm from Osaka in Japan</p>

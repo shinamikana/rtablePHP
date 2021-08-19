@@ -1,14 +1,15 @@
 .logo{
-    display: block;
-    width:380px;
-    height:90px;
-    text-align: center;
-    margin-left:auto;
+    display:block;
+    width:370px;
+    margin-top:80px;
     margin-right:auto;
-    margin-top:40px;
+    margin-left:auto;
+    text-align: center;
     background-color: skyblue;
     border-radius: 50px;
     font-weight: lighter;
+    overflow: hidden;
+    font-size: 70px;
 }
 
 .logo a{
@@ -16,7 +17,6 @@
     font-family: 'Anton', sans-serif;
     text-decoration: none;
     display: block;
-    font-size: 30px;
 }
 
 .logo span{

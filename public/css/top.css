@@ -8,6 +8,14 @@ html,body{
     font-weight: lighter;
 }
 
+.bgD{
+    background-color: #19448e !important;
+}
+
+.colorD{
+    color:#19448e !important;
+}
+
 li{
     list-style-type:none;
 }
@@ -36,6 +44,7 @@ li{
     background-color: skyblue;
     border-radius: 10px;
     cursor:pointer;
+    border:1px solid skyblue;
 }
 
 .info a:hover{
@@ -44,10 +53,11 @@ li{
 
 .post-wrapper{
     height:auto;
-    width:85%;
+    width:83%;
     margin-top:50px;
     margin-bottom:100px;
     margin-left:20px;
+    margin-right:20px;
     border:1px solid skyblue;
     background-color:skyblue;
     border-radius: 10px;
@@ -59,14 +69,18 @@ li{
     z-index:0;
     min-height:150px;
     height:auto;
-    width:95%;
+    width:97%;
     border:1px solid mediumspringgreen;
     border-radius: 10px;
-    margin:10px 20px;
-    background-color:#dfffff;
+    margin:10px 10px;
+    background-color:#cfffff;
     color:skyblue;
     opacity:0;
     padding-bottom:10px;
+}
+
+.postD{
+    background-color:#1f3134 !important;
 }
 
 .icon{
@@ -103,7 +117,6 @@ li{
 .content{
     position: relative;
     left:-50px;
-    background-color:#dfffff;
     width:auto;
     min-width:70%;
     min-height:150px;
@@ -113,9 +126,9 @@ li{
     border:1px solid skyblue;
     border-radius: 10px;
     color:royalblue;
-    text-shadow:0.3px 0 0 aqua;
     font-family: "Hannari",'Bona Nova', serif;;
     letter-spacing: 0.1em;
+    background-color:#cfffff;
 }
 
 .content p{
@@ -124,10 +137,14 @@ li{
     line-height: 24px;
 }
 
+.darkContentP{
+    color:skyblue;
+}
+
 .content-img{
     position: relative;
     left:-20px;
-    z-index:10002;
+    z-index:3;
     display: block;
     height:150px;
     width: 150px;
@@ -145,8 +162,9 @@ li{
 
 .posting{
     position: fixed;
-    bottom:50px;
-    left:25%;
+    bottom:20px;
+    left:50%;
+    transform: translateX(-50%);
     z-index: 99;
 }
 
@@ -331,8 +349,8 @@ li{
     z-index:1;
     height:100%;
     width:100%;
-    background-color:#dfffff;
-    opacity:0.4;
+    background-color:skyblue;
+    opacity:0.3;
     display:none;
 }
 
@@ -340,15 +358,10 @@ li{
     margin-left:auto;
     margin-right:auto;
     margin-top:80px;
-    width:400px;
+    width:100%;
     padding:20px 0;
     border:1px solid skyblue;
-}
-
-.error li{
-    margin-bottom:10px;
     color:green;
-    list-style: none;
     text-align: center;
 }
 
@@ -412,11 +425,12 @@ li{
 }
 
 .img-wrapper{
+    display:inline-block;
     margin-top:50px;
-    float:right;
     height:auto;
     width:180px;
     background-color: skyblue;
+    border:1px solid skyblue;
 }
 
 .open{
@@ -507,6 +521,55 @@ li{
     float:right;
     margin-top:20px;
     margin-right:270px;
+}
+
+.faWrapper{
+    position: fixed;
+    top:20px;
+    right:30px;
+    display: inline-block;
+    line-height: 50px;
+    padding:10px;
+    text-align: center;
+    cursor:pointer;
+    font-size:50px;
+    background-color:#1f3134;
+    color:#cfffff;
+    border:1px solid aqua;
+    border-radius: 10px;
+    z-index:100;
+    opacity:0.7;
+}
+
+.rRotate{
+    animation:rRotate 0.3s  linear 0s 1 forwards;
+}
+
+@keyframes rRotate{
+    from{
+        transform:rotate(180deg);
+    }
+    to{
+        transform:rotate(0);
+    }
+}
+
+.rotate{
+    animation:rotate 0.3s  linear 0s 1 forwards;
+}
+
+@keyframes rotate{
+    from{
+        transform:rotate(0);
+    }
+    to{
+        transform:rotate(180deg);
+    }
+}
+
+.lightBg{
+    background-color:#cfffff;
+    color:black;
 }
 
 @media(max-width:670px){

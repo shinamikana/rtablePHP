@@ -13,7 +13,7 @@
 </head>
 <body>
     <div class="logo">
-        <a href="/"><h1><span>R</span>OUND TABLE</h1></a>
+        <a href="index.php" id="logoA"><span id="logoS">R</span>OUND TABLE</a>
     </div>
 </body>
 </html>
