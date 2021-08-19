@@ -12,7 +12,7 @@
     if(count($_POST) === 0){    //POSTの有無確認
         $message = '';
     }else{
-        if(!empty($_POST['text']) && !empty($_POST['img'])){    //投稿フォームの各POSTのどちらかが空でなければ投稿
+        if(!empty($_POST['text']) || !empty($_POST['img'])){    //投稿フォームの各POSTのどちらかが空でなければ投稿
             //日時取得
             date_default_timezone_set('Asia/Tokyo');
             $date = date('Y/m/d/ H:i:s');
