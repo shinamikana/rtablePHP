@@ -1,5 +1,5 @@
 html,body{
-    background-color:#cfffff;
+    background-color:#bfffff;
     position: relative;
 }
 
@@ -72,7 +72,7 @@ li{
     border:1px solid mediumspringgreen;
     border-radius: 10px;
     margin:10px 10px;
-    background-color:#cfffff;
+    background-color:#bfffff;
     color:skyblue;
     opacity:0;
     padding-bottom:10px;
@@ -127,7 +127,7 @@ li{
     color:royalblue;
     font-family: "Hannari",'Bona Nova', serif;;
     letter-spacing: 0.1em;
-    background-color:#cfffff;
+    background-color:#bfffff;
 }
 
 .content p{
@@ -306,7 +306,9 @@ li{
     margin-right:300px;
 }
 
-#del button{
+#deltn{
+    position: relative;
+    left:600px;
     background-color:skyblue;
     color:white;
     font-size:15px;
@@ -387,7 +389,7 @@ li{
     display:block;
     width:250px;
     height:80px;
-    border:1px solid skyblue;
+    background-color: skyblue;
     border-radius: 50px;
 }
 
@@ -405,11 +407,13 @@ li{
     line-height:80px;
     margin-top:100px;
     margin-left:20px;
-    color:skyblue;
-    padding:5px 10px;
 }
 
 .myInfo a{
+    font-family: 'Anton', sans-serif;
+    letter-spacing: 1px;
+    font-size:20px;
+    color:white;
     display:block;
     text-decoration:none ;
 }
@@ -542,6 +546,53 @@ li{
 
 .rRotate{
     animation:rRotate 0.3s  linear 0s 1 forwards;
+}
+
+.confirm{
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform: translateY(-50%)translateX(-50%);
+    font-family: 'Anton', sans-serif;
+    height:200px;
+    width:350px;
+    z-index:100;
+    border: 1px solid royalblue;
+    border-radius:10px;
+    background-color:aqua;
+    color:royalblue;
+    text-align: center;
+    overflow: hidden;
+    display:none;
+}
+
+.confirm p{
+    letter-spacing: 1px;
+    font-size:35px;
+    margin-top:50px;
+}
+
+.confirm button{
+    font-size:35px;
+    background-color:transparent;
+    color:aqua;
+    background-color: royalblue;
+    border:1px solid royalblue;
+    cursor: pointer;
+    font-family: 'Anton', sans-serif;
+    letter-spacing: 1px;
+}
+
+#ok{
+    position: absolute;
+    right:0;
+    bottom:0;
+}
+
+#cancel{
+    position: absolute;
+    left:0;
+    bottom:0;
 }
 
 @keyframes rRotate{

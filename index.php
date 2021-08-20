@@ -1,5 +1,7 @@
 <?php   include('dateBase.php');
+    //セキュリティの為、セッションIDを変更
     session_regenerate_id(TRUE);
+    //投稿をDBから持ってくる
     $postView = $pdo->prepare('SELECT * FROM post JOIN users ON user_id=id ORDER BY post_id DESC');
     $postView->execute();
     if(isset($_SESSION['id'])){
@@ -9,6 +11,7 @@
         $iconResult = $icon->fetch();
     }
     
+    //投稿処理
     if(count($_POST) === 0){    //POSTの有無確認
         $message = '';
     }else{
@@ -38,9 +41,10 @@
                 header('Location:index.php');
             }
         }else{
-            $message = 'please type text or imgurl';
+            $message = '';
         }
         
+        //いいね処理
         //いいねフォームが空でなければ ＝　送信されれば
         if(!empty($_POST['favoid'])){
             if(isset($_SESSION['id'])){
@@ -51,6 +55,13 @@
             $gfavo = $pdo->prepare('UPDATE post SET favo = favo+1 WHERE post_id = ?');
             $gfavo -> bindParam(1,$_POST['favoid'],PDO::PARAM_INT);
             $gfavo -> execute();
+            header('Location:index.php');
+        }
+
+        if(!empty($_POST['del'])){
+            $del = $pdo->prepare('DELETE FROM post WHERE post_id = ?');
+            $del -> bindParam(1,$_POST['del'],PDO::PARAM_INT);
+            $del -> execute();
             header('Location:index.php');
         }
     }
@@ -98,7 +109,7 @@
         </div>
 
                 
-        <div class="myInfo">
+        <div class="myInfo" id="myInfo">
         <?php if(isset($_SESSION['id'])):?>
             <a href="/mypage.php"><span><?php echo $_SESSION['username']?></span><img src="<?php echo $iconResult['icon'] ?>"></a>
         <?php else:?>
@@ -106,6 +117,13 @@
         <?php endif ?>
         </div>
 
+        <!--確認ダイアログ -->
+        <div class="confirm">
+            <p>seriously?</p>
+            <button onclick="false;" id="cancel">nope</button><button onclick="clickEvent();" id="ok">yup</button>
+        </div>
+
+        <!--エラー表示-->
         <?php if($message !== ''): ?>
         <p class="error"><?php echo $message ?></p>
         <?php endif ?>
@@ -114,6 +132,7 @@
             <img src="">
         </div>
 
+        <!--画像一覧-->
         <div class="img-wrapper" id="imgW">
         <?php foreach($postView->fetchAll() as $imgs):?>
         <?php if($imgs['img'] !== ''): ?>
@@ -140,9 +159,10 @@
                 <p class="post-info"><span class="like"><form action="index.php" method="post" id="like-form"><?php echo $post['favo']?></span> <button type="submit" name="favoid" value="<?php echo $post['post_id'] ?>" id="favo-submit"><i class="fas fa-sign-language"></i></button></form>
                 <?php if(isset($_SESSION['id'])): ?>
                     <?php if($post['user_id'] === $_SESSION['id']): ?>
-                        <form action="/" method="post" id="del">
-                            <button name="del" value="<?php echo $post['post_id'] ?>" id="deltn" onClick="return clickEvent()">delete</button>
+                        <form action="index.php" method="post" id="del">
+                            <input type="hidden" name="del" value="<?php echo $post['post_id'] ?>"></button>
                         </form>
+                    <button id="deltn" onclick="document.<?php echo $post['post_id'] ?>.submit()">delete</button>
                     <?php endif ?>
                     <?php endif ?>
                     </p></span>
@@ -173,21 +193,29 @@
 
         <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         <script async>
+
         function clickEvent(){
                 let form = document.getElementById('del');
-                if(confirm('seriously?')){
                     form.submit();
-                }else{
-                    return false;
-                }
             }
 
-            
             //PHPでonclick時に切り替えるように
             const darking = ()=>{
-                
-                if(phpDark == 0 || phpDark == undefined){
-                    <?php $_SESSION['dark'] = 1 ?>
+                let dark = document.getElementById('dark');
+                let check = document.getElementById('check');
+                let html = document.documentElement;
+                let body = document.body;
+                let imgW = document.getElementById('imgW');
+                let logoA = document.getElementById('logoA');
+                let logoS = document.getElementById('logoS');
+                let textarea = document.getElementById('textarea');
+                let submit = document.getElementById('submit');
+                let imgUrl = document.getElementById('img-url');
+                let admin = document.getElementById('admin');
+                let txtC = document.getElementById('txtcontent');
+                let faBg = document.getElementById('faW');
+                let myInfo = document.getElementById('myInfo');
+                if(!check.classList.contains('postD')){
                     dark.classList.add('rotate');
                     check.classList.add('postD');
                     html.classList.add('postD');
@@ -204,10 +232,10 @@
                     logoA.classList.add('bgD');
                     logoS.classList.add('colorD');
                     faBg.classList.add('lightBg');
+                    myInfo.classList.add('bgD');
                     posting();
                     infoD();
                 }else{
-                    <?php $_SESSION['dark'] = 0 ?>
                     removeDark();
                     rInfoD();
                     check.classList.remove('postD');
@@ -227,6 +255,7 @@
                     txtC.classList.remove('darkContentP');
                     dark.classList.remove('rotate');
                     faBg.classList.remove('lightBg');
+                    myInfo.classList.remove('bgD');
                 }
             }
 
@@ -242,8 +271,6 @@
                 userName[count].classList.add('darkContentP');
                 ++count ;
                 const timer = setTimeout(posting);
-                console.log(posts.length);
-                console.log(count);
                 if(count === posts.length){
                     clearTimeout(timer);
                 }
@@ -258,8 +285,6 @@
                 content[count].classList.remove('postD');
                 darkP[count].classList.remove('darkContentP');
                 userName[count].classList.remove('darkContentP');
-                console.log(haveDarkP);
-                console.log(haveDark);
                 const removeTimer = setTimeout(removeDark);
                 if(count === 0 ){
                     clearTimeout(removeTimer);
@@ -271,11 +296,12 @@
             let count3 = 0;
 
             const infoD = ()=>{
+                console.log(infoLi.length);
+                console.log(count3);
                 infoLi[count3].classList.add('bgD');
-                ++count3;
-                const ifnoTimer = setTimeout(infoD);
-
-                if(infoLi.length === count3){
+                const infoTimer = setTimeout(infoD);
+                count3++;
+                if(count3 === infoLi.length){
                     clearTimeout(infoTimer);
                 }
             }
@@ -312,6 +338,14 @@
                     $('.info').find('ul').slideDown();
                     $(this).addClass('hoge');
                 }
+            });
+
+            $('#deltn').click(()=>{
+                $('.confirm').show();
+            });
+
+            $('#cancel').click(()=>{
+                $('.confirm').hide();
             });
 
 
