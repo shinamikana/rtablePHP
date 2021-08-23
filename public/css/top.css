@@ -97,7 +97,7 @@ li{
     top:0;
     left:0;
     right:0;
-    z-index:10001;
+    z-index:1001;
     height:100%;
     width:100%;
     background-color: rgba(255,255,255,0.3);
@@ -540,7 +540,7 @@ li{
     color:#cfffff;
     border:1px solid aqua;
     border-radius: 10px;
-    z-index:100;
+    z-index:2000;
     opacity:0.7;
 }
 
