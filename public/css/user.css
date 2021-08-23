@@ -356,7 +356,17 @@ html,body{
         margin-left:50px;
     }
 
+    .here{
+        width:200px;
+        left:50px;
+        font-size:20px;
+    }
+
+    .red{
+        font-size:15px;
+    }
+
     .wrapper{
-        height:600px;
+        height:750px;
     }
 }
