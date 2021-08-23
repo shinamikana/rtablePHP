@@ -1,8 +1,17 @@
 <?php include_once('dateBase.php');
     $user = $pdo->prepare('SELECT * FROM users WHERE id = ?');
+    $info2 = $pdo->prepare('SELECT COUNT(*) FROM users WHERE id=?');
+    $info3 = $pdo->prepare('SELECT SUM(favo) FROM post WHERE user_id=?');
+
     $user -> bindParam(1,$_GET['userId'],PDO::PARAM_INT);
+    $info2->bindParam(1,$_GET['userId'],PDO::PARAM_INT);
+    $info3->bindParam(1,$_GET['userId'],PDO::PARAM_INT);
     $user -> execute();
     $userInfo = $user -> fetch();
+    $info2->execute();
+    $info3->execute();
+    $posts = $info2->fetch();
+    $favos = $info3->fetch();
 ?>
 
 <!DOCTYPE html>
@@ -56,11 +65,11 @@
             <h2 id="karte">karte</h2><img class="icon" src="<?php echo $userInfo['icon'] ?>">
             <div class="content">
                 <p>user name:<span><?php echo $userInfo['username'] ?></span></p>
-                <form action="postlog.php" method="get" name="userId">
-                    <input type="hidden" name="userId" value="$_GET['userId']">
+                <form action="post_log.php" method="get" name="userId">
+                    <input type="hidden" name="userId" value="<?php echo $_GET['userId'] ?>">
                 </form>
-                <p>posted:<span>　　<a href="#" onclick="document.userId.submit();"><%=posts.upost%></a></span></p>
-                <p>has likes:<span></span></p>
+                <p>posted:<span>　　<a href="#" onclick="document.userId.submit();"><?php echo $posts[0] ?></a></span></p>
+                <p>has likes:<span><?php echo $favos[0] ?></span></p>
                 <p>gives likes:<span><?php echo $userInfo['give_like'] ?></span></p>
                 <span id="sign">　　awesome!!　　by　administor</span>
             </div>

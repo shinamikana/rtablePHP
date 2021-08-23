@@ -325,12 +325,24 @@ html,body{
     }
 
     .wrapper{
-        height:700px;
+        height:800px;
     }
 
     #sign{
         font-size:18px;
         margin:0;
+    }
+
+    .sub-wrapper{
+        height:550px;
+    }
+
+    .here{
+        font-size:30px;
+    }
+
+    .red{
+        font-size:25px;
     }
 
 }
