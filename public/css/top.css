@@ -962,6 +962,10 @@ li{
         padding:1px;
     }
 
+    #deltn{
+        left:0;
+    }
+
     .post-wrapper{
         width:100%;
         margin-left:0;
@@ -1055,6 +1059,28 @@ li{
         font-size:5px;
         height:5px;
         width:130px;
+    }
+
+    .faWrapper{
+        width:40px;
+    }
+
+    .posting{
+        left:50%;
+        transform: translateX(-50%);
+        bottom:20px;
+    }
+
+    #textarea{
+        width:90%;
+    }
+
+    #img-url{
+        width:90%;
+    }
+
+    #submit{
+        width:90%;
     }
 
 }
