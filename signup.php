@@ -55,11 +55,12 @@
         
         <h2><span>signup</span></h2>
         
+        <?php if($message !== ''): ?>
             <ul class="error">
-                <?php if($message !== ''): ?>
+                
                 <li><?php echo $message ?></li>
-                <?php endif ?>
             </ul>
+        <?php endif ?>
             
         <div class="wrapper">
             <form action="signup.php" method="post">

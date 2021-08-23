@@ -1,6 +1,11 @@
 <?php   include('dateBase.php');
     //セキュリティの為、セッションIDを変更
     session_regenerate_id(TRUE);
+
+    if(empty($_SESSION['dark'])){
+        $_SESSION['dark'] = 0;
+    }
+
     //投稿をDBから持ってくる
     $postView = $pdo->prepare('SELECT * FROM post JOIN users ON user_id=id ORDER BY post_id DESC');
     $postView->execute();
@@ -194,6 +199,13 @@
         <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         <script async>
 
+            window.onload = function(){
+                let checkDark = <?php echo $_SESSION['dark']?>;
+                if(checkDark === 1){
+                    chageDark();
+                }
+            }
+
         function clickEvent(){
                 let form = document.getElementById('del');
                     form.submit();
@@ -201,6 +213,16 @@
 
             //PHPでonclick時に切り替えるように
             const darking = ()=>{
+                if(!check.classList.contains('postD')){
+                    <?php $_SESSION['dark'] = 1 ?>
+                    chageDark();
+                }else{
+                    <?php $_SESSION['dark'] = 0 ?>
+                    reChangeDark();
+                }
+            }
+
+            const chageDark = ()=>{
                 let dark = document.getElementById('dark');
                 let check = document.getElementById('check');
                 let html = document.documentElement;
@@ -215,7 +237,7 @@
                 let txtC = document.getElementById('txtcontent');
                 let faBg = document.getElementById('faW');
                 let myInfo = document.getElementById('myInfo');
-                if(!check.classList.contains('postD')){
+
                     dark.classList.add('rotate');
                     check.classList.add('postD');
                     html.classList.add('postD');
@@ -235,7 +257,24 @@
                     myInfo.classList.add('bgD');
                     posting();
                     infoD();
-                }else{
+            }
+
+            const reChangeDark = ()=>{
+                let dark = document.getElementById('dark');
+                let check = document.getElementById('check');
+                let html = document.documentElement;
+                let body = document.body;
+                let imgW = document.getElementById('imgW');
+                let logoA = document.getElementById('logoA');
+                let logoS = document.getElementById('logoS');
+                let textarea = document.getElementById('textarea');
+                let submit = document.getElementById('submit');
+                let imgUrl = document.getElementById('img-url');
+                let admin = document.getElementById('admin');
+                let txtC = document.getElementById('txtcontent');
+                let faBg = document.getElementById('faW');
+                let myInfo = document.getElementById('myInfo');
+
                     removeDark();
                     rInfoD();
                     check.classList.remove('postD');
@@ -256,7 +295,6 @@
                     dark.classList.remove('rotate');
                     faBg.classList.remove('lightBg');
                     myInfo.classList.remove('bgD');
-                }
             }
 
             let count = 0;

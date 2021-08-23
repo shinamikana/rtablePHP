@@ -13,13 +13,14 @@
     z-index:10001;
     margin:0 auto;
     top:50px;
-    height:85%;
+    height:90%;
     width:80%;
     background-color:#dfffff;
     border:1px solid royalblue;
     color:royalblue;
     display:none;
     border-radius: 10px;
+    text-align: center;
 }
 
 .leftText{
@@ -45,7 +46,6 @@
 }
 
 .textContent{
-    margin-top:30px;
     width:100%;
     font-size:14px;
 }
@@ -53,10 +53,6 @@
 .topText h3{
     display:inline-block;
     background-color: rgba(255,255,255,0.5);
-}
-
-.twitter-follow-button{
-    margin-top:100px;
 }
 
 #adminImg{
@@ -70,4 +66,16 @@
     top:15px;
     right:25px;
     cursor: pointer;
+}
+
+@media(max-width:480px){
+    .topText{
+        width:80%;
+        height:170px;
+        background-size:cover;
+    }
+
+    .admin{
+        width:95%;
+    }
 }

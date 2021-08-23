@@ -652,7 +652,6 @@ li{
         height:100px;
         background-color: rgba(255,255,255,0.8);
         text-align: center;
-        z-index:9999;
     }
 
     .info li{
@@ -665,7 +664,6 @@ li{
     }
 
     .posting{
-        left:0;
         bottom:50px;
     }
 
@@ -752,6 +750,24 @@ li{
 
 @media(max-width:480px){
 
+    .faWrapper{
+        right:400px;
+        left:15px;
+        display:inline-block;
+        font-size:30px;
+        top:20px;
+        padding:0;
+        z-index:1;
+    }
+
+    .info{
+        z-index:10;
+    }
+
+    .myInfo{
+        display:none;
+    }
+
     .textContent{
         margin-top:0;
         font-size:12px;
@@ -815,6 +831,7 @@ li{
     }
 
     .content{
+        left:0;
         width:85%;
         padding-bottom:0;
         margin-bottom:10px;
@@ -822,7 +839,7 @@ li{
     }
 
     .content p{
-        font-size:14px;
+        font-size:15px;
     }
 
     .fa-sign-language{
@@ -875,6 +892,25 @@ li{
         font-size:5px;
         height:5px;
         width:110px;
+    }
+
+    .posting{
+        left:50%;
+        transform: translateX(-50%);
+        width:400px;
+        display:flex;
+    }
+
+    #textarea{
+        width:400px;
+    }
+
+    #img-url{
+        width:400px;
+    }
+
+    #submit{
+        width:400px;
     }
 }
 

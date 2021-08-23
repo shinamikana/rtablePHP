@@ -3,12 +3,8 @@
 <div class="admin" id="admin">
             <i class="fas fa-times"></i>
             <div class="topText">
-                <h3>Kenji Iwasaki</h3>
-                <br>
-                <img src="" id="adminImg">
-                <br>
-                <a href="https://twitter.com/tunanikan?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-lang="en" data-show-count="false">Follow @tunanikan</a>
             </div>
+            <a href="https://twitter.com/tunanikan?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-lang="en" data-show-count="false">Follow @tunanikan</a>
             <div class="textContent" id="txtcontent">
                 <div class="leftText">
                     <p>Hi :)</p>

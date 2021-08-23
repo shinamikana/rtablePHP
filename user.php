@@ -35,10 +35,21 @@
         </ul>
     </div>
 
-    <?php echo $_GET['userId'] ?>
-
     <h2 id="mypage-logo"><?php echo $userInfo['username'] ?> page</h2>
     <div class="wrapper">
+        <div class="news1">
+            <i class="fas fa-thumbtack pin3"></i>
+            <p>Do you know</p>
+            <p>Tyler Durden?</p>
+        </div>
+
+        <div class="news2">
+            <i class="fas fa-thumbtack pin4"></i>
+            <p>Is that you, John Wayne?</p>
+            <p>Is this me?</p>
+        </div>
+
+
         <div class="sub-wrapper">
             <i class="fas fa-thumbtack pin1"></i>
             <i class="fas fa-thumbtack pin2"></i>
@@ -53,6 +64,15 @@
                 <p>gives likes:<span><?php echo $userInfo['give_like'] ?></span></p>
                 <span id="sign">　　awesome!!　　by　administor</span>
             </div>
+        </div>
+        <div class="here">
+            <p>BROOKS</p>
+            <p>WAS HERE</p>
+        </div>
+
+        <div class="red">
+            <p>SO WAS</p>
+            <p>RED</p>
         </div>
     </div>
 </body>

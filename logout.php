@@ -4,7 +4,7 @@
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,7 +14,9 @@
 </head>
 <body>
     <?php include('logo.php'); ?>
-    <h1>logout</h1>
+    <h2>logout</h2>
     <p>logout done</p>
+    <span id="again">\see you again/</span>
+    <img src="/public/images/bye.png" alt="">
 </body>
 </html>

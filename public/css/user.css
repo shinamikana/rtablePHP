@@ -169,6 +169,62 @@ html,body{
     z-index:3;
 }
 
+.news1{
+    position: absolute;
+    right:20px;
+    top:20px;
+    font-family: 'Architects Daughter', cursive;
+    text-align: center;
+    height:120px;
+    width:200px;
+    background-color: white;
+    box-shadow:10px 10px 5px darkgreen;
+}
+
+.news2{
+    position: absolute;
+    left:20px;
+    top:430px;
+    font-family: 'Architects Daughter', cursive;
+    text-align: center;
+    height:150px;
+    width:230px;
+    background-color: white;
+    box-shadow:10px 10px 5px darkgreen;
+}
+
+.pin3{
+    position:absolute;
+    top:-10px;
+}
+
+.pin4{
+    position:absolute;
+    top:-10px;
+}
+
+.here{
+    position: absolute;
+    bottom:10px;
+    right:250px;
+    line-height: 0px;
+    font-size:40px;
+    font-weight: bold;
+    color:darkgreen;
+    font-family: 'Architects Daughter', cursive;
+}
+
+.red{
+    position: absolute;
+    bottom:10px;
+    right:50px;
+    font-size:30px;
+    font-weight: bold;
+    color:darkgreen;
+    line-height: 0;
+    font-family: 'Architects Daughter', cursive;
+}
+
 @media(max-width:670px){
     .fa-bars{
         display:block !important;
