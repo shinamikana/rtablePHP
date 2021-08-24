@@ -1,0 +1,45 @@
+html,body{
+    background-color:#cfffff;
+    text-align: center;
+}
+
+*{
+    box-sizing: border-box;
+    font-weight: lighter;
+}
+
+h2{
+    border:1px solid skyblue;
+    margin-top:30px;
+    color:skyblue;
+    text-align: center;
+    font-size:40px;
+    letter-spacing: 2px;
+    font-family: 'Anton', sans-serif;
+    font-weight: lighter;
+}
+
+p{
+    font-family: 'Anton', sans-serif;
+    font-size:80px;
+    color:skyblue;
+}
+
+#again{
+    position: absolute;
+    right:100px;
+    bottom:300px;
+    color:green;
+    font-family: 'Anton', sans-serif;
+    font-size:40px;
+    margin-top:150px;
+}
+
+img{
+    position: absolute;
+    right:130px;
+    bottom:150px;
+    height:200px;
+    width:200px;
+
+}

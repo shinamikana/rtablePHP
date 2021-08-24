@@ -1,0 +1,81 @@
+*{
+    box-sizing: border-box;
+}
+
+.info li{
+    cursor: pointer;
+}
+
+.admin{
+    position:fixed;
+    left:0;
+    right:0;
+    z-index:10001;
+    margin:0 auto;
+    top:50px;
+    height:90%;
+    width:80%;
+    background-color:#dfffff;
+    border:1px solid royalblue;
+    color:royalblue;
+    display:none;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.leftText{
+    float:left;
+    width:45%;
+    text-align: center;
+}
+
+.rightText{
+    float:right;
+    width:45%;
+    text-align: center;
+}
+
+.topText{
+    background-image: url(/images/low.jpg);
+    margin-top:50px;
+    margin-right:auto;
+    margin-left:auto;
+    width:500px;
+    height:300px;
+    text-align: center;
+}
+
+.textContent{
+    width:100%;
+    font-size:14px;
+}
+
+.topText h3{
+    display:inline-block;
+    background-color: rgba(255,255,255,0.5);
+}
+
+#adminImg{
+    display:inline-block;
+    height:150px;
+}
+
+.fa-times{
+    font-size:25px;
+    position: absolute;
+    top:15px;
+    right:25px;
+    cursor: pointer;
+}
+
+@media(max-width:480px){
+    .topText{
+        width:80%;
+        height:170px;
+        background-size:cover;
+    }
+
+    .admin{
+        width:95%;
+    }
+}

@@ -1,0 +1,32 @@
+.logo{
+    display:block;
+    width:370px;
+    margin-top:80px;
+    margin-right:auto;
+    margin-left:auto;
+    text-align: center;
+    background-color: skyblue;
+    border-radius: 50px;
+    font-weight: lighter;
+    overflow: hidden;
+    font-size: 70px;
+}
+
+.logo a{
+    color:white;
+    font-family: 'Anton', sans-serif;
+    text-decoration: none;
+    display: block;
+}
+
+.logo span{
+    background-color:white;
+    color:skyblue;
+    letter-spacing: 2px;
+}
+
+@media(max-width:480px){
+    .logo{
+        transform: scale(0.8,0.8);
+    }
+}

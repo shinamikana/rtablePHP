@@ -1,0 +1,105 @@
+html,body{
+    background-color:#dfffff;
+}
+
+*{
+    box-sizing: border-box;
+    font-weight: lighter;
+}
+
+
+
+h2{
+    border: 1px solid skyblue;
+    margin-top:30px;
+    color:skyblue;
+    text-align: center;
+    font-size:40px;
+    letter-spacing: 2px;
+    font-weight: lighter;
+    font-family: 'Anton', sans-serif;
+}
+
+
+p{
+    margin-top:50px;
+    color:skyblue;
+    font-family: 'Anton', sans-serif;
+}
+
+.wrapper{
+    width:800px;
+    border:1px solid skyblue;
+    font-size: 20px;
+    margin-top:50px;
+    margin-left:auto;
+    margin-right:auto;
+    letter-spacing: 2px;
+    font-weight: lighter;
+    margin-bottom:100px;
+}
+
+#submit{
+    font-family: 'Anton', sans-serif;
+    margin-top: 50px;
+    width:120px;
+    font-size:20px;
+    background-color:skyblue;
+    color:white;
+    border:0;
+    letter-spacing: 2px;
+}
+
+form{
+    text-align: center;
+}
+
+input{
+    background-color:#dfffff;
+    width:300px;
+    text-align: center;
+    border:1px solid skyblue;
+    border-radius: 10px;
+}
+
+input:focus{
+    outline:none;
+}
+
+.error{
+    margin:0 auto;
+    background-color:skyblue;
+    width:400px;
+    padding:20px 0;
+}
+
+.error li{
+    margin-bottom:10px;
+    color:green;
+    list-style: none;
+    text-align: center;
+}
+
+@media(max-width:670px){
+    .wrapper{
+        width:100%;
+    }
+
+    input{
+        height:40px;
+        width:500px;
+        font-size:30px;
+    }
+
+    #submit{
+        width:200px;
+        height:40px;
+    }
+}
+
+@media(max-width:480px){
+    input{
+        width:300px;
+        height:20px;
+    }
+}
