@@ -2,20 +2,33 @@
     //セキュリティの為、セッションIDを変更
     session_regenerate_id(TRUE);
 
-    if(empty($_SESSION['dark'])){
-        $_SESSION['dark'] = 0;
+    //エスケープ処理 XSS対策
+    function h($str){
+        return htmlspecialchars($str,ENT_QUOTES,'UTF-8');
     }
 
+    //クリックジャッキング対策
+    //他のページを重ねて表示させない
+    header('X-FRAME-OPTIONS:DENY');
+
+    //トークン処理
+
+    $TOKEN_LENGTH = 16;
+    $tokenByte = openssl_random_pseudo_bytes($TOKEN_LENGTH);
+    $csrfToken = bin2hex($tokenByte);
+    //セッションに設定
+    $_SESSION['csrfToken'] = $csrfToken;
+
     //投稿をDBから持ってくる
-    $postView = $pdo->prepare('SELECT * FROM post JOIN users ON user_id=id ORDER BY post_id DESC');
-    $postView->execute();
+    $postView = $pdo->query('SELECT * FROM post JOIN users ON user_id=id ORDER BY post_id DESC');
     if(isset($_SESSION['id'])){
         $icon = $pdo->prepare('SELECT icon FROM users WHERE id=?');
-        $icon->bindParam(1,$_SESSION['id'],PDO::PARAM_INT);
+        $icon->bind_param('i',$_SESSION['id']);
         $icon -> execute();
-        $iconResult = $icon->fetch();
+        $resultIcon = $icon -> get_result() -> fetch_assoc();
     }
     
+    if(isset($_SESSION['csrfToken']) || $_SESSION['csrfToken'] === $_POST['csrf']){
     //投稿処理
     if(count($_POST) === 0){    //POSTの有無確認
         $message = '';
@@ -27,22 +40,16 @@
             //セッションがなければゲスト投稿
             if(empty($_SESSION['username'])){
                 $gpost = $pdo->prepare('INSERT INTO post(text,date,username,img,ipAddress) VALUES(?,?,"guest",?,?) ');
-                $gpost -> bindParam(1,$_POST['text'],PDO::PARAM_STR,100);
-                $gpost -> bindParam(2,$date,PDO::PARAM_STR,30);
-                $gpost -> bindParam(3,$_POST['img'],PDO::PARAM_STR,1000);
-                $gpost -> bindParam(4,$_SERVER['REMOTE_ADDR'],PDO::PARAM_INT);
+                $gpost -> bind_param('ssss',$_POST['text'],$date,$_POST['img'],$_SERVER['REMOTE_ADDR']);
                 $gpost -> execute();
+                $gpost -> close();
                 header('Location:index.php');
             }else{
                 //セッションがあれば通常投稿
                 $post = $pdo->prepare('INSERT INTO post(text,user_id,date,username,img,ipAddress) VALUES(?,?,?,?,?,?) ');
-                $post -> bindParam(1,$_POST['text'],PDO::PARAM_STR,100);
-                $post -> bindParam(2,$_SESSION['id'],PDO::PARAM_INT);
-                $post -> bindParam(3,$date,PDO::PARAM_STR,30);
-                $post -> bindParam(4,$_SESSION['username'],PDO::PARAM_STR);
-                $post -> bindParam(5,$_POST['img'],PDO::PARAM_STR,1000);
-                $post -> bindParam(6,$_SERVER['REMOTE_ADDR'],PDO::PARAM_INT);
+                $post -> bind_param('sissss',$_POST['text'],$_SESSION['id'],$date,$_SESSION['username'],$_POST['img'],$_SERVER['REMOTE_ADDR']);
                 $post -> execute();
+                $post -> close();
                 header('Location:index.php');
             }
         }else{
@@ -54,21 +61,27 @@
         if(!empty($_POST['favoid'])){
             if(isset($_SESSION['id'])){
                 $hfavo = $pdo->prepare('UPDATE users SET give_like = give_like+1 WHERE id = ?');
-                $hfavo -> bindParam(1,$_SESSION['id'],PDO::PARAM_INT);
+                $hfavo -> bind_param('i',$_SESSION['id']);
                 $hfavo -> execute();
+                $hfavo -> close();
             }
             $gfavo = $pdo->prepare('UPDATE post SET favo = favo+1 WHERE post_id = ?');
-            $gfavo -> bindParam(1,$_POST['favoid'],PDO::PARAM_INT);
+            $gfavo -> bind_param('i',$_POST['favoid']);
             $gfavo -> execute();
+            $gfavo -> close();
             header('Location:index.php');
         }
 
         if(!empty($_POST['del'])){
             $del = $pdo->prepare('DELETE FROM post WHERE post_id = ?');
-            $del -> bindParam(1,$_POST['del'],PDO::PARAM_INT);
+            $del -> bind_param('i',$_POST['del']);
             $del -> execute();
+            $del -> close();
             header('Location:index.php');
         }
+    }
+    }else{
+        header('Location:https://www.google.com/');
     }
 ?>
 <?php require_once('dateBase.php'); ?>
@@ -116,7 +129,7 @@
                 
         <div class="myInfo" id="myInfo">
         <?php if(isset($_SESSION['id'])):?>
-            <a href="/mypage.php"><span><?php echo $_SESSION['username']?></span><img src="<?php echo $iconResult['icon'] ?>"></a>
+            <a href="/mypage.php"><span><?php echo h($_SESSION['username'])?></span><img src="<?php echo h($resultIcon['icon']) ?>"></a>
         <?php else:?>
             <a><span>guest</span><img src="/images/icon.jpg" alt=""></a>
         <?php endif ?>
@@ -130,7 +143,7 @@
 
         <!--エラー表示-->
         <?php if($message !== ''): ?>
-        <p class="error"><?php echo $message ?></p>
+        <p class="error"><?php echo h($message) ?></p>
         <?php endif ?>
 
         <div class="img-view">
@@ -139,10 +152,10 @@
 
         <!--画像一覧-->
         <div class="img-wrapper" id="imgW">
-        <?php foreach($postView->fetchAll() as $imgs):?>
+        <?php foreach($postView as $imgs):?>
         <?php if($imgs['img'] !== ''): ?>
         <div class="img-sum">
-            <img src="<?php echo $imgs['img']?>" class="imgSum-img" alt="">
+            <img src="<?php echo h($imgs['img'])?>" class="imgSum-img" alt="">
         </div>
         <?php endif ?>
         <?php endforeach?>
@@ -152,35 +165,37 @@
 
 
         <div class="post-wrapper" id="check">
-        <?php $postView->execute()?>
-            <?php foreach($postView->fetchAll() as $post):?>
+            <?php foreach($postView as $post):?>
 
             <div class="post">
-                <img class="icon" src="<?php echo $post['icon']?>">
-                <form method="get" action="user.php" name="<?php echo 'form'.$post['post_id'] ?>">
-                    <input type="hidden" name="userId" value="<?php echo $post['user_id'] ?>">
-                    <a href="#" onclick="document.<?php echo 'form'.$post['post_id'] ?>.submit();"class="userName"><?php echo $post['username']?></a>
+            <a href="#" onclick="document.<?php echo h('form'.$post['post_id']) ?>.submit();"class="userName"><img class="icon" src="<?php echo h($post['icon'])?>"></a>
+                <form method="get" action="user.php" name="<?php echo h('form'.$post['post_id']) ?>">
+                    <input type="hidden" name="userId" value="<?php echo h($post['user_id']) ?>">
+                    <input type="hidden" name="csrf" value="<?php echo $csrfToken ?>">
+                    <a href="#" onclick="document.<?php echo h('form'.$post['post_id']) ?>.submit();"class="userName"><?php echo h($post['username'])?></a>
                 </form>
-                <p class="post-info"><span class="like"><form action="index.php" method="post" id="like-form"><?php echo $post['favo']?></span> <button type="submit" name="favoid" value="<?php echo $post['post_id'] ?>" id="favo-submit"><i class="fas fa-sign-language"></i></button></form>
+                <div id="userInfo">
+                <p class="post-info"><span class="like"><form action="index.php" method="post" id="like-form"><input type="hidden" name="csrf" value="<?php echo $csrfToken ?>"><?php echo h($post['favo'])?></span> <button type="submit" name="favoid" value="<?php echo h($post['post_id']) ?>" id="favo-submit"><i class="fas fa-sign-language"></i></button></form>
                 <?php if(isset($_SESSION['id'])): ?>
-                    <?php if($post['user_id'] === $_SESSION['id']): ?>
+                    <?php if($post['user_id'] == $_SESSION['id']): ?>
                         <form action="index.php" method="post" id="del">
-                            <input type="hidden" name="del" value="<?php echo $post['post_id'] ?>"></button>
+                            <input type="hidden" name="csrf" value="<?php echo $csrfToken ?>">
+                            <button id="deltn" name="del" value="<?php echo h($post['post_id']) ?>">delete</button>
                         </form>
-                    <button id="deltn" onclick="document.<?php echo $post['post_id'] ?>.submit()">delete</button>
                     <?php endif ?>
                     <?php endif ?>
                     </p></span>
-                
+                </div>
+
                     <div class="content">
-                        <p class="contentP"><?php echo $post['text']?></p>         <!--投稿内容-->
+                        <p class="contentP"><?php echo h($post['text'])?></p>         <!--投稿内容-->
                     </div>
                     <?php if($post['img'] !== ''):?>
                         <div class="imgDiv">
-                            <img class="content-img" src="<?php echo $post['img']?>" alt="">
+                            <img class="content-img" src="<?php echo h($post['img'])?>" alt="">
                         </div>
                     <?php endif?>
-                    <span id="data"><?php echo $post['date']?></span>
+                    <span id="data"><?php echo h($post['date'])?></span>
                 </div>
                 <?php endforeach?>
             </div>
@@ -190,6 +205,7 @@
             <i class="fas fa-angle-up"></i>
             <form action="index.php" method="post" id="postForm">
                 <textarea name="img" id="img-url" type="text" cols="30" rows="10" placeholder="http//img url~.◯◯"></textarea>
+                <input type="hidden" name="csrf" value="<?php echo $csrfToken ?>">
                 <textarea name="text" id="textarea" cols="30" rows="10" placeholder="text"></textarea>
                 <input type="submit" value="submit" id="submit">
             </form>
@@ -199,12 +215,6 @@
         <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         <script async>
 
-            window.onload = function(){
-                let checkDark = <?php echo $_SESSION['dark']?>;
-                if(checkDark === 1){
-                    chageDark();
-                }
-            }
 
         function clickEvent(){
                 let form = document.getElementById('del');
@@ -214,10 +224,8 @@
             //PHPでonclick時に切り替えるように
             const darking = ()=>{
                 if(!check.classList.contains('postD')){
-                    <?php $_SESSION['dark'] = 1 ?>
                     chageDark();
                 }else{
-                    <?php $_SESSION['dark'] = 0 ?>
                     reChangeDark();
                 }
             }

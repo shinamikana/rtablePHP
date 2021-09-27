@@ -8,13 +8,13 @@
        if(count($_POST) === 0){
            $message = '';
        }else{
-           if(empty($_POST['email']) || empty($_POST['password'])){
+           if(empty($_POST['email']) && empty($_POST['password'])){
                $message = 'please type password or email';
            }else{
-            $login = $pdo->prepare('SELECT * FROM users WHERE email=?');
-            $login->bindParam(1,$_POST['email'],PDO::PARAM_STR,150); 
+            $login = $pdo->prepare('SELECT * FROM users WHERE email = ?');
+            $login->bind_param('s',$_POST['email']); 
             $login->execute();
-            $result = $login->fetch(PDO::FETCH_ASSOC);
+            $result = $login -> get_result() -> fetch_assoc();
             if(!isset($result['email'])){
                 $message = 'wrong email';
             }else{
@@ -26,7 +26,6 @@
                  $_SESSION['id'] = $result['id'];
                  $_SESSION['icon'] = $result['icon'];
                  header('Location:index.php');
-                 exit();
                 }
             }
             }
@@ -45,6 +44,7 @@
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
         <title>login</title>
+        <script src="https://www.google.com/recaptcha/api.js"></script>
     </head>
     <body>
         <?php include('logo.php');?>
@@ -54,15 +54,20 @@
         <p class="error"><?php echo $message?></p>
         <?php endif ?>
         <div class="wrapper">
-            <form action="login.php" method="post">
+            <form action="login.php" method="post" id="loginForm">
             <p>email</p>
              <input name="email" value="<?php if(!empty($_POST['email'])){echo $_POST['email'];} ?>">
              <p>password</p>
              <input type="password" name="password">
              <br>
-             <input type="submit" id="submit" value="login">
+             <button class="g-recaptcha" data-sitekey="6LeiLZIcAAAAAD7bdpvaSyisU50Opi1shovLyrsP" data-callback="onSubmit" data-action="submit">login</button>
             </form>
         </div>
         
+        <script>
+            function onSubmit(token){
+                document.getElementById('loginForm').submit();
+            }
+        </script>
     </body>
 </html>

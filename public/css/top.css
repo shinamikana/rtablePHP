@@ -145,8 +145,8 @@ li{
     left:-20px;
     z-index:3;
     display: block;
-    height:150px;
-    width: 150px;
+    height:10%;
+    width: 10%;
     border: 1px solid skyblue;
     border-radius: 10px;
 }
@@ -307,8 +307,6 @@ li{
 }
 
 #deltn{
-    position: relative;
-    left:600px;
     background-color:skyblue;
     color:white;
     font-size:15px;
@@ -420,8 +418,8 @@ li{
 
 .imgSum-img{
     display:block;
-    width:80px;
-    height:80px;
+    width:44%;
+    height:40%;
     float:left;
     margin:5px;
     border:1px solid white;
@@ -431,7 +429,7 @@ li{
     display:inline-block;
     margin-top:50px;
     height:auto;
-    width:180px;
+    width:13%;
     background-color: skyblue;
     border:1px solid skyblue;
 }
@@ -620,6 +618,11 @@ li{
 .lightBg{
     background-color:#cfffff;
     color:black;
+}
+
+#userInfo{
+    position: relative;
+    top:3px;
 }
 
 @media(max-width:670px){

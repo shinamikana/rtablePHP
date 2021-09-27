@@ -6,4 +6,10 @@
         <?php $driver_options = [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,PDO::ATTR_EMULATE_PREPARES => false,];
             $username = getenv('DB_USERNAME');
             $password = getenv('DB_PASSWORD')?>
-        <?php $pdo=new PDO($dsn,$username,$password,$driver_options);?>
+        <?php $pdo=new mysqli($host,$username,$password,$dbname);
+        if($pdo -> connect_error){
+            echo $pdo->connect_error;
+            exit();
+        }else{
+            $pdo -> set_charset('utf8');
+        }?>

@@ -1,17 +1,17 @@
 <?php  require_once('dateBase.php');
-        $info = $pdo->prepare('SELECT * FROM users WHERE id=?');
-        $info2 = $pdo->prepare('SELECT COUNT(*) FROM users WHERE id=?');
-        $info3 = $pdo->prepare('SELECT SUM(favo) FROM post WHERE user_id=?');
+        $info = $pdo->prepare('SELECT * FROM users WHERE id = ?');
+        $info2 = $pdo->prepare('SELECT * FROM post WHERE user_id = ?');
+        $info3 = $pdo->prepare('SELECT SUM(favo) FROM post WHERE user_id = ?');
         
-        $info->bindParam(1,$_SESSION['id'],PDO::PARAM_INT);
-        $info2->bindParam(1,$_SESSION['id'],PDO::PARAM_INT);
-        $info3->bindParam(1,$_SESSION['id'],PDO::PARAM_INT);
+        $info->bind_param('i',$_SESSION['id']);
+        $info2-> bind_param('i',$_SESSION['id']);
+        $info3->bind_param('i',$_SESSION['id']);
         $info->execute();
-        $info2->execute();
+        $info2 -> execute();
         $info3->execute();
-        $myInfo = $info->fetch();
-        $posts = $info2->fetch();
-        $favos = $info3->fetch();
+        $myInfo = $info -> get_result() -> fetch_assoc();
+        $posts = $info2 -> num_rows;
+        $favos = $info3 -> num_rows;
     ?>
 <?php if(count($_POST)===0){
     
@@ -20,8 +20,7 @@
         
     }else{
         $imgPost = $pdo->prepare('UPDATE users SET icon=? WHERE id=?');
-        $imgPost->bindParam(1,$_POST['icon'],PDO::PARAM_STR);
-        $imgPost->bindParam(2,$_SESSION['id'],PDO::PARAM_STR);
+        $imgPost->bind_param('si',$_POST['icon'],$_SESSION['id']);
         $imgPost->execute();
         header('Location:mypage.php');
         exit();
@@ -69,8 +68,8 @@
             <form action="/mypage.php" method="post" id="change_icon"><input name="icon" placeholder="//img url~.◯◯" id="imgurl"><br><input type="submit" name="submit" value="change icon" id="submit"></form>
             <div class="content">
                 <p>user name:<span><?php echo $myInfo['username'] ?></span></p>
-                <p>posted:　 <span><a href="/postlog"><?php echo $posts[0] ?></a></span></p>
-                <p>have likes: <span><?php echo $favos[0] ?></span></p>
+                <p>posted:　 <span><a href="/postlog"><?php echo $posts ?></a></span></p>
+                <p>have likes: <span><?php echo $favos ?></span></p>
                 <p>give likes:<span><?php echo $myInfo['give_like'] ?></span></p>
                 <span id="sign">　　thanks!!　　by　administor</span>
             </div>

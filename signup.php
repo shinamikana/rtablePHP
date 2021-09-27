@@ -16,21 +16,19 @@
             }else{
                 $hashPass = password_hash($_POST['password'],PASSWORD_BCRYPT);
                 $check = $pdo->prepare('SELECT email FROM users WHERE email = ?');
-                $check->bindParam(1,$_POST['email'],PDO::PARAM_STR,150);
+                $check -> bind_param('s',$_POST['email']);
                 $check -> execute();
-                $checkResult = $check->fetch(PDO::FETCH_ASSOC);
-                if(!isset($checkResult)){
+                $checkResult = $check -> get_result() ->fetch_assoc();
+                if(isset($checkResult)){
                     $message = 'email is Duplicate';
                 }else{
                     $signup = $pdo->prepare('INSERT INTO users (username,email,password) VALUES (?,?,?)');
-                    $signup -> bindParam(1,$_POST['username'],PDO::PARAM_STR,10);
-                    $signup -> bindParam(2,$_POST['email'],PDO::PARAM_STR,150);
-                    $signup -> bindParam(3,$hashPass,PDO::PARAM_STR,150);
+                    $signup -> bind_param('sss',$_POST['username'],$_POST['email'],$hashPass);
                     $signup -> execute();
-                    $signupResult = $signup->fetch(PDO::FETCH_ASSOC);
+                    $signupResult = $signup -> fetch();
                     session_regenerate_id(TRUE);
                     $_SESSION['username'] = $_POST['username'];
-                    $_SESSION['id'] = $pdo->lastInsertId();
+                    $_SESSION['id'] = $pdo->insert_id;
                     header('Location:index.php');
                     exit();
                 }
@@ -49,6 +47,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@300&display=swap" rel="stylesheet">
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+        <script src="https://www.google.com/recaptcha/api.js?render=reCAPTCHA_site_key"></script>
     </head>
     <body>
         <?php include('logo.php'); ?>
@@ -73,8 +72,13 @@
                 <p>retype password</p>
                 <input type="password" name="repassword" pattern="^([a-zA-Z0-9]{1,50})$">
                 <br>
-                <input type="submit" value="submit" id="submit">
+                <button class="g-recaptcha" data-sitekey="6LeiLZIcAAAAAD7bdpvaSyisU50Opi1shovLyrsP" data-callback="onSubmit" data-action="submit">login</button>
             </form>
         </div>
+        <script>
+            function onSubmit(token){
+                document.getElementById('loginForm').submit();
+            }
+        </script>
     </body>
 </html>
