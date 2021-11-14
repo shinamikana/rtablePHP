@@ -142,7 +142,7 @@ li{
 
 .content-img{
     position: relative;
-    left:-20px;
+    left:0px;
     z-index:3;
     display: block;
     height:10%;
